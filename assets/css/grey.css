@@ -281,20 +281,23 @@
 
 .grey .view-container > form > div > h3,
 .grey .view-container > div > h3,
-.grey .view-body > h3 .grey .subheader {
+.grey .view-body > h3,
+.grey .subheader {
   color: #181b1f;
 }
 
 .grey .mobile .view-container > form > div > h3,
 .grey .mobile .view-container > div > h3,
-.grey .mobile .view-body > h3 .grey .mobile .subheader {
+.grey .mobile .view-body > h3,
+.grey .mobile .subheader {
   background-color: #e1ebe9;
 }
 
 @media screen and (max-width: 600px) {
   .grey .view-container > form > div > h3,
   .grey .view-container > div > h3,
-  .grey .view-body > h3 .grey .subheader {
+  .grey .view-body > h3,
+  .grey .subheader {
     background-color: #e2e2e2;
   }
 }
@@ -519,8 +522,11 @@
 }
 
 .grey .form-group .form-control.invalid,
-.grey .row > .col > label input.invalid .grey .row > label input.invalid,
-.grey .row > .col > label select.invalid .grey .row > label select.invalid,
+.grey .form-group .form-control.invalid,
+.grey .row > .col > label input.invalid,
+.grey .row > label input.invalid,
+.grey .row > .col > label select.invalid,
+.grey .row > label select.invalid,
 .grey .view-container > form > div > section > label > input.invalid,
 .grey .view-container > form > div > section > label > select.invalid,
 .grey .view-container > form > div > label > input.invalid,
@@ -574,7 +580,8 @@
 .grey .view-container > form > div > section > label > select,
 .grey .view-container > form > div > label > select,
 .grey .view-container > div > label > select,
-.grey .view-body > label > select .grey .row > .col > label select,
+.grey .view-body > label > select,
+.grey .row > .col > label select,
 .grey .row > label select:not([multiple]),
 .grey .row > label select[multiple] {
   color: #000;

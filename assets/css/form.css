@@ -437,7 +437,8 @@ label > span.suffix-value {
   padding-right: 34px;
 }
 
-.row.radio-group > label.col .row > .col.radio-group > label.s6,
+.row.radio-group > label.col,
+.row > .col.radio-group > label.s6,
 .row > .col.radio-group > label.s6:last-child,
 .row.radio-group > label.col.s6:last-child {
   flex: 0 0 50%;

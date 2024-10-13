@@ -290,20 +290,23 @@ ul.list-view > li > section:first-child > div > h3.inactive > a {
 
 .view-container > form > div > h3,
 .view-container > div > h3,
-.view-body > h3 .subheader {
+.view-body > h3,
+.subheader {
   color: #3d7678;
 }
 
 .mobile .view-container > form > div > h3,
 .mobile .view-container > div > h3,
-.mobile .view-body > h3 .mobile .subheader {
+.mobile .view-body > h3,
+.mobile .subheader {
   background-color: #e1ebe9;
 }
 
 @media screen and (max-width: 600px) {
   .view-container > form > div > h3,
   .view-container > div > h3,
-  .view-body > h3 .subheader {
+  .view-body > h3,
+  .subheader {
     background-color: #e1ebe9;
   }
 }
@@ -512,8 +515,10 @@ label.inline-input > input:focus,
 }
 
 .form-group .form-control.invalid,
-.row > .col > label input.invalid .row > label input.invalid,
-.row > .col > label select.invalid .row > label select.invalid,
+.row > .col > label input.invalid,
+.row > label input.invalid,
+.row > .col > label select.invalid,
+.row > label select.invalid,
 .view-container > form > div > section > label > input.invalid,
 .view-container > form > div > section > label > select.invalid,
 .view-container > form > div > label > input.invalid,
@@ -569,7 +574,8 @@ button:disabled {
 .view-container > form > div > section > label > select,
 .view-container > form > div > label > select,
 .view-container > div > label > select,
-.view-body > label > select .row > .col > label select,
+.view-body > label > select,
+.row > .col > label select,
 .row > label select:not([multiple]),
 .row > label select[multiple] {
   color: #4d4d4d;
