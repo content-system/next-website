@@ -1,28 +1,78 @@
-'use client'
-
-import { useEffect, useState } from "react"
 import { Groups, Item } from "reactx-groups"
-import { getPrivileges, StringMap, useResource } from "uione"
 
+export interface StringMap {
+  [key: string]: string
+}
+
+const items: Item[] = [
+  {
+    name: "Home",
+    resource: "home",
+    path: "/",
+    icon: "home",
+  },
+  {
+    name: "Works",
+    resource: "works",
+    path: "/works",
+    icon: "assignments",
+  },
+  {
+    name: "Services",
+    resource: "services",
+    path: "/services",
+    icon: "settings",
+  },
+  {
+    name: "News",
+    resource: "news",
+    path: "/news",
+    icon: "assignments",
+  },
+  {
+    name: "Careers",
+    resource: "careers",
+    path: "/careers",
+    icon: "pie_chart",
+  },
+  {
+    name: "contact",
+    resource: "contact",
+    path: "/contact",
+    icon: "contacts",
+  },
+  {
+    name: "About",
+    resource: "about",
+    path: "/about",
+    icon: "assignments",
+    children: [
+      {
+        name: "Milestones",
+        resource: "milestones",
+        path: "/milestones",
+        icon: "local_atm",
+      },
+      {
+        name: "companies",
+        resource: "companies",
+        path: "/companies",
+        icon: "zoom_in",
+      },
+      {
+        name: "Leadership",
+        resource: "leadership",
+        path: "/leadership",
+        icon: "public",
+      },
+    ],
+  },
+]
 export default function HomePage() {
-  const [resource, setResource] = useState<StringMap>()
-  const [items, setItems] = useState<Item[]>([])
-  useEffect(() => {
-    setResource(useResource())
-    let groups = getPrivileges()
-    setItems(groups)
-  }, [])
-/*
-  useEffect(() => {
-    const v = (router.query.q as string) || ""
-    setShownItems(buildShownItems(v, items))
-  }, [items])
-*/
   return (
     <Groups
-      title={resource?.home}
+      title="Home"
       groups={items}
-      resource={resource}
       className="view-container menu"
       groupClass="row group hr-height-1"
       headerClass="col s12 m12"
