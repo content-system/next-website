@@ -144,7 +144,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       <img className="logo" src="../logo192.png" alt="Logo of The Company" />
                     </div>
                     <label className="search-input">
-                      <input type="text" id="q" name="q" maxLength={1000} placeholder="Keyword" autoComplete="off" value="" />
+                      <input type="text" id="q" name="q" maxLength={1000} placeholder="Keyword" autoComplete="off" />
                       <button type="button" hidden className="btn-remove-text"></button>
                       <button type="button" className="btn-search"></button>
                     </label>
