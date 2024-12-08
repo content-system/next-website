@@ -22,6 +22,7 @@
 @import "./dark.css";
 @import "./group.css";
 @import "./navigation.css";
+@import "./pagination.css";
 html,
 body {
   margin: 0;
