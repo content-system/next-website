@@ -9,23 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "csvtojson": "^2.0.10",
-    "locale-service": "^0.1.0",
     "next": "14.2.15",
-    "next-hook-core": "^0.2.1",
     "onecore": "^0.1.5",
     "query-string": "7.1.1",
     "react": "^18",
     "react-dom": "^18",
-    "reactx-groups": "^0.0.1",
-    "reactx-navigator": "^0.0.1",
-    "ui-alert": "^0.1.2",
-    "ui-loading": "^0.0.5",
-    "ui-plus": "0.2.6",
-    "ui-toast": "^0.0.5",
-    "uione": "^0.2.5",
-    "validation-core": "^1.0.0",
-    "web-clients": "^0.2.4"
+    "reactx-groups": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
