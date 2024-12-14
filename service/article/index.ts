@@ -1,6 +1,7 @@
 import { Manager, Search } from "onecore"
 import { DB, Repository, SearchBuilder } from "query-core"
 import { Article, ArticleFilter, articleModel, ArticleRepository, ArticleService } from "./article"
+
 export * from "./article"
 
 export class SqlArticleRepository extends Repository<Article, string> implements ArticleRepository {

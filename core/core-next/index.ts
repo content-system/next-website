@@ -3,15 +3,34 @@ export class resources {
   static page = "page"
   static limit = "limit"
   static defaultLimit = 12
+  static sort = "sort"
 }
-export function removePage(obj: any): string {
+export interface StringMap {
+  [key: string]: string
+}
+export interface Params {
+  params: StringMap
+  searchParams: StringMap
+}
+export function removePage(obj: StringMap): string {
   const arr: string[] = []
   const keys = Object.keys(obj)
   for (const k of keys) {
     if (k !== resources.page) {
       const v = obj[k]
-      arr.push("" + k + "=" + v)
-      console.log("key " + k + ": " + v)
+      arr.push(`${k}=${encodeURI(v)}`)
+    }
+  }
+  return arr.length === 0 ? "" : arr.join("&")
+}
+
+export function removeSort(obj: StringMap): string {
+  const arr: string[] = []
+  const keys = Object.keys(obj)
+  for (const k of keys) {
+    if (k !== resources.sort) {
+      const v = obj[k]
+      arr.push(`${k}=${encodeURI(v)}`)
     }
   }
   return arr.length === 0 ? "" : arr.join("&")
@@ -20,28 +39,249 @@ export type SearchParams = {
   q?: string
   page?: string
   limit?: string
+  sort?: string
 }
+export interface Sort {
+  field?: string
+  type?: string
+}
+export interface SortType {
+  url: string
+  tag: string
+}
+export interface SortMap {
+  [key: string]: SortType
+}
+export function getSortString(field: string, sort: Sort): string {
+  if (field === sort.field) {
+    return sort.type === "-" ? field : "-" + field
+  }
+  return field
+}
+export function buildFilter<T>(obj: StringMap, dates?: string[], nums?: string[], arr?: string[]): T {
+  const filter: any = fromParams<T>(obj, arr)
+  filter[resources.page] = getPage(filter[resources.page] as string)
+  filter[resources.limit] = getLimit(filter[resources.limit] as string)
+  format(filter, dates, nums)
+  return filter
+}
+export function fromParams<T>(obj: StringMap, arr?: string[]): T {
+  const s: any = {}
+  const keys = Object.keys(obj)
+  for (const key of keys) {
+    if (inArray(key, arr)) {
+      const x = (obj[key] as string).split(",")
+      setValue(s, key, x)
+    } else {
+      setValue(s, key, obj[key] as string)
+    }
+  }
+  return s
+}
+export function inArray(s: string, arr?: string[]): boolean {
+  if (!arr || arr.length === 0) {
+    return false
+  }
+  for (const a of arr) {
+    if (s === a) {
+      return true
+    }
+  }
+  return false
+}
+export function setValue<T, V>(o: T, key: string, value: V): any {
+  const obj: any = o
+  let replaceKey = key.replace(/\[/g, ".[").replace(/\.\./g, ".")
+  if (replaceKey.indexOf(".") === 0) {
+    replaceKey = replaceKey.slice(1, replaceKey.length)
+  }
+  const keys = replaceKey.split(".")
+  const firstKey = keys.shift()
+  if (!firstKey) {
+    return
+  }
+  const isArrayKey = /\[([0-9]+)\]/.test(firstKey)
+  if (keys.length > 0) {
+    const firstKeyValue = obj[firstKey] || {}
+    const returnValue = setValue(firstKeyValue, keys.join("."), value)
+    return setKey(obj, isArrayKey, firstKey, returnValue)
+  }
+  return setKey(obj, isArrayKey, firstKey, value)
+}
+const setKey = (_object: any, _isArrayKey: boolean, _key: string, _nextValue: any) => {
+  if (_isArrayKey) {
+    if (_object.length > _key) {
+      _object[_key] = _nextValue
+    } else {
+      _object.push(_nextValue)
+    }
+  } else {
+    _object[_key] = _nextValue
+  }
+  return _object
+}
+const _datereg = "/Date("
+const _re = /-?\d+/
+function toDate(v: any): Date | null | undefined {
+  if (!v) {
+    return null
+  }
+  if (v instanceof Date) {
+    return v
+  } else if (typeof v === "number") {
+    return new Date(v)
+  }
+  const i = v.indexOf(_datereg)
+  if (i >= 0) {
+    const m = _re.exec(v)
+    if (m !== null) {
+      const d = parseInt(m[0], 10)
+      return new Date(d)
+    } else {
+      return null
+    }
+  } else {
+    if (isNaN(v)) {
+      return new Date(v)
+    } else {
+      const d = parseInt(v, 10)
+      return new Date(d)
+    }
+  }
+}
+export function format<T>(obj: T, dates?: string[], nums?: string[]): T {
+  const o: any = obj
+  if (dates && dates.length > 0) {
+    for (const s of dates) {
+      const v = o[s]
+      if (v) {
+        if (v instanceof Date) {
+          continue
+        }
+        if (typeof v === "string" || typeof v === "number") {
+          const d = toDate(v)
+          if (d) {
+            if (!(d instanceof Date) || d.toString() === "Invalid Date") {
+              delete o[s]
+            } else {
+              o[s] = d
+            }
+          }
+        } else if (typeof v === "object") {
+          const keys = Object.keys(v)
+          for (const key of keys) {
+            const v2 = v[key]
+            if (v2 instanceof Date) {
+              continue
+            }
+            if (typeof v2 === "string" || typeof v2 === "number") {
+              const d2 = toDate(v2)
+              if (d2) {
+                if (!(d2 instanceof Date) || d2.toString() === "Invalid Date") {
+                  delete v[key]
+                } else {
+                  v[key] = d2
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  if (nums && nums.length > 0) {
+    for (const s of nums) {
+      const v = o[s]
+      if (v) {
+        if (v instanceof Date) {
+          delete o[s]
+          continue
+        }
+        if (typeof v === "number") {
+          continue
+        }
+        if (typeof v === "string") {
+          if (!isNaN(v as any)) {
+            delete o[s]
+            continue
+          } else {
+            const i = parseFloat(v)
+            o[s] = i
+          }
+        } else if (typeof v === "object") {
+          const keys = Object.keys(v)
+          for (const key of keys) {
+            const v2 = v[key]
+            if (v2 instanceof Date) {
+              delete o[key]
+              continue
+            }
+            if (typeof v2 === "number") {
+              continue
+            }
+            if (typeof v2 === "string") {
+              if (!isNaN(v2 as any)) {
+                delete v[key]
+              } else {
+                const i = parseFloat(v2)
+                v[key] = i
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return o
+}
+
+export function buildSort(s?: string): Sort {
+  if (!s || s.indexOf(",") >= 0) {
+    return {} as Sort
+  }
+  if (s.startsWith("-")) {
+    return { field: s.substring(1), type: "-" }
+  } else {
+    return { field: s.startsWith("+") ? s.substring(1) : s, type: "+" }
+  }
+}
+export function buildSortFromParams(params: StringMap): Sort {
+  const s = params[resources.sort] as string
+  return buildSort(s)
+}
+export function renderSort(field: string, sort: Sort): string {
+  if (field === sort.field) {
+    return sort.type === "-" ? "<i class='sort-down'></i>" : "<i class='sort-up'></i>"
+  }
+  return ""
+}
+export function buildSortSearch(params: StringMap, fields: string[], sortStr?: string): SortMap {
+  const search = removeSort(params)
+  const sort = buildSort(sortStr)
+  let sorts: SortMap = {}
+  const prefix = search.length > 0 ? "?" + search + "&" : "?"
+  for (let i = 0; i < fields.length; i++) {
+    sorts[fields[i]] = {
+      url: prefix + resources.sort + "=" + getSortString(fields[i], sort),
+      tag: renderSort(fields[i], sort),
+    }
+  }
+  return sorts
+}
+
 export function getDateFormat(profile?: string): string {
   return "M/D/YYYY"
 }
 export function getPage(page?: string): number {
-  return getNumber(page, 1)
+  const num = getNumber(page)
+  return num === undefined || num < 1 ? 1 : num
 }
-export function getNumber(num?: string, defaultNum?: number): number {
-  if (!num) {
-    if (defaultNum && defaultNum > 0) {
-      return defaultNum
-    } else {
-      return 12
-    }
-  } else {
-    if (!isNaN(num as any)) {
-      const i = parseInt(num, 10)
-      return i > 0 ? i : 12
-    } else {
-      return 12
-    }
-  }
+export function getLimit(limit?: string): number {
+  const num = getNumber(limit)
+  return num === undefined || num < 1 ? resources.defaultLimit : num
+}
+export function getNumber(num?: string, defaultNum?: number): number | undefined {
+  return !num || num.length === 0 ? defaultNum : isNaN(num as any) ? undefined : parseInt(num, 10)
 }
 export function printObject(obj: any): void {
   const keys = Object.keys(obj)
