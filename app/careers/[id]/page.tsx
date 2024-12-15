@@ -1,5 +1,5 @@
 import ctx from "@core/context"
-import { formatDateTime, getDateFormat, Params } from "@core/core-next"
+import { formatDateTime, getDateFormat, Params } from "web-one"
 
 export default async function Job({ params: { id } }: Params) {
   const dateFormat = getDateFormat()

@@ -1,8 +1,8 @@
 import { Pagination } from "@core/components/pagination"
 import ctx from "@core/context"
-import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, getDateFormat, Params, removePage } from "@core/core-next"
 import { getResource } from "@resources/index"
 import { JobFilter } from "@service/job"
+import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, getDateFormat, Params, removePage } from "web-one"
 
 const fields = ["id", "title", "publishedAt", "description"]
 

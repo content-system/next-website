@@ -18,7 +18,8 @@
     "query-string": "7.1.1",
     "react": "^18",
     "react-dom": "^18",
-    "reactx-groups": "^0.0.1"
+    "reactx-groups": "^0.0.1",
+    "web-one": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",

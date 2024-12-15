@@ -1,5 +1,5 @@
 import ctx from "@core/context"
-import { formatDateTime, getDateFormat, Params } from "@core/core-next"
+import { formatDateTime, getDateFormat, Params } from "web-one"
 
 const fields = ["id", "title", "publishedAt", "description"]
 

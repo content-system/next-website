@@ -1,6 +1,6 @@
-import { formatPhone } from "@core/core-next"
 import { getResource } from "@resources/index"
 import { Contact } from "@service/contact"
+import { formatPhone } from "web-one"
 
 export default function ContactForm() {
   const resource = getResource()
