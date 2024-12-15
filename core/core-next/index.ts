@@ -328,14 +328,17 @@ export function clone(obj: any): any {
   return x
 }
 
-export function datetimeToString(date: Date | string = ""): string {
+export function datetimeToString(date?: Date | string): string | undefined {
+  if (!date || date === "") {
+    return undefined
+  }
   const d2 = typeof date !== "string" ? date : new Date(date)
   const year = d2.getFullYear()
-  const month = String(d2.getMonth() + 1).padStart(2, "0")
-  const day = String(d2.getDate()).padStart(2, "0")
-  const hours = String(d2.getHours()).padStart(2, "0")
-  const minutes = String(d2.getMinutes()).padStart(2, "0")
-  const seconds = String(d2.getSeconds()).padStart(2, "0")
+  const month = pad(d2.getMonth() + 1)
+  const day = pad(d2.getDate())
+  const hours = pad(d2.getHours())
+  const minutes = pad(d2.getMinutes())
+  const seconds = pad(d2.getSeconds())
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`
 }
 
@@ -460,4 +463,45 @@ function pad3(n: number): string {
     return n.toString()
   }
   return n < 10 ? "00" + n : "0" + n.toString()
+}
+// tslint:disable-next-line:class-name
+export class formatter {
+  static phone = / |\-|\.|\(|\)/g
+  static usPhone = /(\d{3})(\d{3})(\d{4})/
+  static removePhoneFormat(phone: string): string {
+    if (phone) {
+      return phone.replace(formatter.phone, "")
+    } else {
+      return phone
+    }
+  }
+  static formatPhone(phone?: string | null): string {
+    if (!phone) {
+      return ""
+    }
+    // reformat phone number
+    // 555 123-4567 or (+1) 555 123-4567
+    let s = phone
+    const x = formatter.removePhoneFormat(phone)
+    if (x.length === 10) {
+      const USNumber = x.match(formatter.usPhone)
+      if (USNumber != null) {
+        s = `${USNumber[1]} ${USNumber[2]}-${USNumber[3]}`
+      }
+    } else if (x.length <= 3 && x.length > 0) {
+      s = x
+    } else if (x.length > 3 && x.length < 7) {
+      s = `${x.substring(0, 3)} ${x.substring(3, x.length)}`
+    } else if (x.length >= 7 && x.length < 10) {
+      s = `${x.substring(0, 3)} ${x.substring(3, 6)}-${x.substring(6, x.length)}`
+    } else if (x.length >= 11) {
+      const l = x.length
+      s = `${x.substring(0, l - 7)} ${x.substring(l - 7, l - 4)}-${x.substring(l - 4, l)}`
+      // formatedPhone = `(+${phoneNumber.charAt(0)}) ${phoneNumber.substring(0, 3)} ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6, phoneNumber.length - 1)}`;
+    }
+    return s
+  }
+}
+export function formatPhone(phone?: string | null): string {
+  return formatter.formatPhone(phone)
 }

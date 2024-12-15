@@ -1,5 +1,5 @@
+import ctx from "@core/context"
 import { formatDateTime, getDateFormat, Params } from "@core/core-next"
-import ctx from "@core/lib"
 
 export default async function Job({ params: { id } }: Params) {
   const dateFormat = getDateFormat()
