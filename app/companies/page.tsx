@@ -5,7 +5,7 @@ export default function Companies() {
   return (
     <div className="view-container companies">
       <header>
-        <h2>Companies</h2>
+        <h1>Companies</h1>
       </header>
       <div>
         <ul className="row list">
