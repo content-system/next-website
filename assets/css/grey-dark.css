@@ -82,20 +82,6 @@
 .grey.dark .pagination > .active,
 .grey.dark .pagination-page.active,*/
 
-.grey.dark form.list-result > div > table tbody tr.active:nth-child(odd) td,
-.grey.dark form.list-result > div > table tbody tr.active:nth-child(odd) th,
-.grey.dark form.list-result > div > table > thead > tr > td.active,
-.grey.dark form.list-result > div > table > tbody > tr > td.active,
-.grey.dark form.list-result > div > table > tfoot > tr > td.active,
-.grey.dark form.list-result > div > table > thead > tr > th.active,
-.grey.dark form.list-result > div > table > tbody > tr > th.active,
-.grey.dark form.list-result > div > table > tfoot > tr > th.active,
-.grey.dark form.list-result > div > table > thead > tr.active > td,
-.grey.dark form.list-result > div > table > tbody > tr.active > td,
-.grey.dark form.list-result > div > table > tfoot > tr.active > td,
-.grey.dark form.list-result > div > table > thead > tr.active > th,
-.grey.dark form.list-result > div > table > tbody > tr.active > th,
-.grey.dark form.list-result > div > table > tfoot > tr.active > th,
 .grey.dark .table-striped tbody tr.active:nth-child(odd) td,
 .grey.dark .table-striped tbody tr.active:nth-child(odd) th,
 .grey.dark .table > thead > tr > td.active,
@@ -152,22 +138,6 @@
   background-color: #d74738;
 }
 
-.grey.dark form.list-result > div > table tbody tr.active:hover td,
-.grey.dark form.list-result > div > table tbody tr.active:hover th,
-.grey.dark form.list-result > div > table tbody tr.active:nth-child(odd) td,
-.grey.dark form.list-result > div > table tbody tr.active:nth-child(odd) th,
-.grey.dark form.list-result > div > table > thead > tr > td.active,
-.grey.dark form.list-result > div > table > tbody > tr > td.active,
-.grey.dark form.list-result > div > table > tfoot > tr > td.active,
-.grey.dark form.list-result > div > table > thead > tr > th.active,
-.grey.dark form.list-result > div > table > tbody > tr > th.active,
-.grey.dark form.list-result > div > table > tfoot > tr > th.active,
-.grey.dark form.list-result > div > table > thead > tr.active > td,
-.grey.dark form.list-result > div > table > tbody > tr.active > td,
-.grey.dark form.list-result > div > table > tfoot > tr.active > td,
-.grey.dark form.list-result > div > table > thead > tr.active > th,
-.grey.dark form.list-result > div > table > tbody > tr.active > th,
-.grey.dark form.list-result > div > table > tfoot > tr.active > th,
 .grey.dark .table-hover tbody tr.active:hover td,
 .grey.dark .table-hover tbody tr.active:hover th,
 .grey.dark .table-striped tbody tr.active:nth-child(odd) td,
@@ -188,38 +158,25 @@
   background-color: #4f5352;
 }
 
-.grey.dark .detail .table-responsive > table > tbody > tr:hover,
-.grey.dark .detail .table-responsive > table > tbody > tr:nth-of-type(odd):hover,
-.grey.dark form.list-result > .table-responsive > table > tbody > tr:hover,
-.grey.dark form.list-result > .table-responsive > table > tbody > tr:nth-of-type(odd):hover,
+.grey.dark .table > tbody > tr:hover,
+.grey.dark .table > tbody > tr:nth-of-type(odd):hover,
 .grey.dark .table-hover > tbody > tr:hover,
 .grey.dark .table-striped > tbody > tr:nth-of-type(odd):hover {
   background-color: #111;
 }
 
-.grey.dark .detail .table-responsive > table > thead > tr > th,
-.grey.dark .detail .table-responsive > table > tbody > tr > td,
-.grey.dark form.list-result > .table-responsive > table > thead > tr > th,
-.grey.dark form.list-result > .table-responsive > table > tbody > tr > td,
 .grey.dark .table > thead > tr > th,
 .grey.dark .table > tbody > tr > td {
   border-bottom-color: #222;
 }
 
-.grey.dark .detail .table-responsive > table,
-.grey.dark .detail .table-responsive > table > tbody > tr > td,
-.grey.dark .detail .table-responsive > table > tbody > tr > th,
-.grey.dark .detail .table-responsive > table > tfoot > tr > td,
-.grey.dark .detail .table-responsive > table > tfoot > tr > th,
-.grey.dark .detail .table-responsive > table > thead > tr > td,
-.grey.dark .detail .table-responsive > table > thead > tr > th,
-.grey.dark form.list-result > .table-responsive > table,
-.grey.dark form.list-result > .table-responsive > table > tbody > tr > td,
-.grey.dark form.list-result > .table-responsive > table > tbody > tr > th,
-.grey.dark form.list-result > .table-responsive > table > tfoot > tr > td,
-.grey.dark form.list-result > .table-responsive > table > tfoot > tr > th,
-.grey.dark form.list-result > .table-responsive > table > thead > tr > td,
-.grey.dark form.list-result > .table-responsive > table > thead > tr > th,
+.grey.dark .table,
+.grey.dark .table > tbody > tr > td,
+.grey.dark .table > tbody > tr > th,
+.grey.dark .table > tfoot > tr > td,
+.grey.dark .table > tfoot > tr > th,
+.grey.dark .table > thead > tr > td,
+.grey.dark .table > thead > tr > th,
 .grey.dark .table-bordered,
 .grey.dark .table-bordered > tbody > tr > td,
 .grey.dark .table-bordered > tbody > tr > th,
@@ -230,8 +187,7 @@
   border-color: #313335;
 }
 
-.grey.dark .detail .table-responsive > table > tbody > tr:nth-of-type(odd),
-.grey.dark form.list-result > .table-responsive > table > tbody > tr:nth-of-type(odd),
+.grey.dark .table > tbody > tr:nth-of-type(odd),
 .grey.dark .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #000;
 }
@@ -257,11 +213,7 @@
   border-color: #242424;
 }
 .grey.dark body,
-.grey.dark .detail .table-responsive > table > tbody > tr > td > a,
-.grey.dark form.list-result > .table-responsive > table > tbody > tr > td > a,
 .grey.dark .table > tbody > tr > td > a,
-.grey.dark .detail .table-responsive > table > tbody > tr > td,
-.grey.dark form.list-result > .table-responsive > table > tbody > tr > td,
 .grey.dark .table > tbody > tr > td,
 .grey.dark .row .form-group label,
 .grey.dark .pagination > li > a,
@@ -272,10 +224,7 @@
 .grey.dark .view-container > header > h5,
 .grey.dark .view-header > h5,
 .grey.dark .view-subtitle,
-.grey.dark .subtitle,
-.grey.dark .profile.view-container > form > .row > .col > div.card > section > p,
-.grey.dark ul.list-view > li > section:first-child > div > h3.inactive,
-.grey.dark ul.list-view > li > section:first-child > div > h3.inactive > a {
+.grey.dark .subtitle {
   color: #657181;
 }
 
@@ -331,25 +280,22 @@
 .grey.dark .view-container > form > div > section > p,
 .grey.dark .section-body > p,
 .grey.dark .brand,
-.grey.dark ul.list-view > li > section:first-child > div > h4,
-.grey.dark ul.list-view > li > section:first-child > div > h4 > a,
+.grey.dark .img-card > h4,
 .grey.dark .card > section > p,
 .grey.dark .card > section > p > a,
 .grey.dark .video > section > p,
 .grey.dark .video > section > p > a,
-.grey.dark li.video > h4 > a,
-.grey.dark ul.list-view > li > section:first-child > div > p,
-.grey.dark ul.list-view > li > div > h4,
-.grey.dark ul.list-view > li > div > p,
-.grey.dark ul.list-view > li > h4,
-.grey.dark ul.list-view.horizon > li > a,
-.grey.dark ul.list-view > li > p,
-.grey.dark ul.list-view > li > p > a,
+.grey.dark .video > p,
+.grey.dark .video > h4 > a,
+.grey.dark .video > p,
+.grey.dark .video > h4 > a,
+.grey.dark .img-card > p,
+.grey.dark .horizon > li > a,
+.grey.dark .list-item > a,
+.grey.dark .img-item > a,
 .grey.dark .table > thead > tr > th,
 .grey.dark .table > thead > tr > th > a,
-.grey.dark form.list-result > .table-responsive > table > thead > tr > th,
-.grey.dark form.list-result > .table-responsive > table > thead > tr > th > button,
-.grey.dark form.list-result > .table-responsive > table > thead > tr > th > a,
+.grey.dark .table > thead > tr > th > button,
 .grey.dark .view-container > form > div > h4,
 .grey.dark .view-container > div > h4,
 .grey.dark .view-body > h4,
@@ -383,7 +329,7 @@
   color: #778497 !important;
 }
 /*
-.grey.dark form.list-result > .table-responsive > table > thead > tr,
+.grey.dark .table > thead > tr,
 .grey.dark div.card {
   background-color: #1f1f1f;
 }
@@ -398,12 +344,6 @@
 .grey.dark .view-body > label.focused,
 .grey.dark .view-container > form > div > h2,
 .grey.dark .card > section > h3,
-.grey.dark ul.list-view > li > section:first-child > div > h3,
-.grey.dark ul.list-view > li > section:first-child > div > h3 > a,
-.grey.dark ul.list-view > li > div > h3,
-.grey.dark ul.list-view > li > h3,
-.grey.dark div.card > div > h3,
-.grey.dark div.card > h3,
 .grey.dark .card > footer > button,
 .grey.dark .btn-select,
 .grey.dark .btn-add,
@@ -586,8 +526,6 @@
 }
 
 .grey.dark .diff .row .col p > span,
-.grey.dark div.card > div > p,
-.grey.dark article > address > label,
 .grey.dark article > p > label,
 .grey.dark section > p > label,
 .grey.dark .view-container > form > div > section > article > p.remark,
@@ -681,10 +619,6 @@
   color: #657181 !important;
 }
 
-.grey.dark .view-container > form > div > label.search-input > *,
-.grey.dark .view-container > div > label.search-input > *,
-.grey.dark .view-body > label.search-input > *,
-.grey.dark .row > .col > label.search-input > *,
 .grey.dark .row > label.search-input > *,
 .grey.dark .search-input > * {
   border-color: #2f3033 !important;
@@ -693,13 +627,10 @@
   background: #000;
   color: #000;
 }
-.grey.dark ul.list-view > li,
-.grey.dark ul.list-view.row > li.col > *:last-child,
-.grey.dark ul.list-view > li.section-container > section:first-child,
-.grey.dark div.card,
+
 .grey.dark .card > section,
 .grey.dark .video > section,
-.grey.dark ul.list-view.horizon > li.video {
+.grey.dark .horizon > .video {
   border-color: #1f1f1f;
 }
 

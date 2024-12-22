@@ -82,20 +82,6 @@
 .grey .pagination > .active,
 .grey .pagination-page.active,*/
 
-.grey form.list-result > div > table tbody tr.active:nth-child(odd) td,
-.grey form.list-result > div > table tbody tr.active:nth-child(odd) th,
-.grey form.list-result > div > table > thead > tr > td.active,
-.grey form.list-result > div > table > tbody > tr > td.active,
-.grey form.list-result > div > table > tfoot > tr > td.active,
-.grey form.list-result > div > table > thead > tr > th.active,
-.grey form.list-result > div > table > tbody > tr > th.active,
-.grey form.list-result > div > table > tfoot > tr > th.active,
-.grey form.list-result > div > table > thead > tr.active > td,
-.grey form.list-result > div > table > tbody > tr.active > td,
-.grey form.list-result > div > table > tfoot > tr.active > td,
-.grey form.list-result > div > table > thead > tr.active > th,
-.grey form.list-result > div > table > tbody > tr.active > th,
-.grey form.list-result > div > table > tfoot > tr.active > th,
 .grey .table-striped tbody tr.active:nth-child(odd) td,
 .grey .table-striped tbody tr.active:nth-child(odd) th,
 .grey .table > thead > tr > td.active,
@@ -152,22 +138,6 @@
   background-color: #d74738;
 }
 
-.grey form.list-result > div > table tbody tr.active:hover td,
-.grey form.list-result > div > table tbody tr.active:hover th,
-.grey form.list-result > div > table tbody tr.active:nth-child(odd) td,
-.grey form.list-result > div > table tbody tr.active:nth-child(odd) th,
-.grey form.list-result > div > table > thead > tr > td.active,
-.grey form.list-result > div > table > tbody > tr > td.active,
-.grey form.list-result > div > table > tfoot > tr > td.active,
-.grey form.list-result > div > table > thead > tr > th.active,
-.grey form.list-result > div > table > tbody > tr > th.active,
-.grey form.list-result > div > table > tfoot > tr > th.active,
-.grey form.list-result > div > table > thead > tr.active > td,
-.grey form.list-result > div > table > tbody > tr.active > td,
-.grey form.list-result > div > table > tfoot > tr.active > td,
-.grey form.list-result > div > table > thead > tr.active > th,
-.grey form.list-result > div > table > tbody > tr.active > th,
-.grey form.list-result > div > table > tfoot > tr.active > th,
 .grey .table-hover tbody tr.active:hover td,
 .grey .table-hover tbody tr.active:hover th,
 .grey .table-striped tbody tr.active:nth-child(odd) td,
@@ -188,38 +158,25 @@
   background-color: #4f5352;
 }
 
-.grey .detail .table-responsive > table > tbody > tr:hover,
-.grey .detail .table-responsive > table > tbody > tr:nth-of-type(odd):hover,
-.grey form.list-result > .table-responsive > table > tbody > tr:hover,
-.grey form.list-result > .table-responsive > table > tbody > tr:nth-of-type(odd):hover,
+.grey .table > tbody > tr:hover,
+.grey .table > tbody > tr:nth-of-type(odd):hover,
 .grey .table-hover > tbody > tr:hover,
 .grey .table-striped > tbody > tr:nth-of-type(odd):hover {
   background-color: #eee;
 }
 
-.grey .detail .table-responsive > table > thead > tr > th,
-.grey .detail .table-responsive > table > tbody > tr > td,
-.grey form.list-result > .table-responsive > table > thead > tr > th,
-.grey form.list-result > .table-responsive > table > tbody > tr > td,
 .grey .table > thead > tr > th,
 .grey .table > tbody > tr > td {
   border-bottom-color: #222;
 }
 
-.grey .detail .table-responsive > table,
-.grey .detail .table-responsive > table > tbody > tr > td,
-.grey .detail .table-responsive > table > tbody > tr > th,
-.grey .detail .table-responsive > table > tfoot > tr > td,
-.grey .detail .table-responsive > table > tfoot > tr > th,
-.grey .detail .table-responsive > table > thead > tr > td,
-.grey .detail .table-responsive > table > thead > tr > th,
-.grey form.list-result > .table-responsive > table,
-.grey form.list-result > .table-responsive > table > tbody > tr > td,
-.grey form.list-result > .table-responsive > table > tbody > tr > th,
-.grey form.list-result > .table-responsive > table > tfoot > tr > td,
-.grey form.list-result > .table-responsive > table > tfoot > tr > th,
-.grey form.list-result > .table-responsive > table > thead > tr > td,
-.grey form.list-result > .table-responsive > table > thead > tr > th,
+.grey .table,
+.grey .table > tbody > tr > td,
+.grey .table > tbody > tr > th,
+.grey .table > tfoot > tr > td,
+.grey .table > tfoot > tr > th,
+.grey .table > thead > tr > td,
+.grey .table > thead > tr > th,
 .grey .table-bordered,
 .grey .table-bordered > tbody > tr > td,
 .grey .table-bordered > tbody > tr > th,
@@ -230,8 +187,7 @@
   border-color: #d1d9e2;
 }
 
-.grey .detail .table-responsive > table > tbody > tr:nth-of-type(odd),
-.grey form.list-result > .table-responsive > table > tbody > tr:nth-of-type(odd),
+.grey .table > tbody > tr:nth-of-type(odd),
 .grey .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #fff;
 }
@@ -257,11 +213,7 @@
   border-color: #242424;
 }
 .grey body,
-.grey .detail .table-responsive > table > tbody > tr > td > a,
-.grey form.list-result > .table-responsive > table > tbody > tr > td > a,
 .grey .table > tbody > tr > td > a,
-.grey .detail .table-responsive > table > tbody > tr > td,
-.grey form.list-result > .table-responsive > table > tbody > tr > td,
 .grey .table > tbody > tr > td,
 .grey .row .form-group label,
 .grey .pagination > li > a,
@@ -272,10 +224,7 @@
 .grey .view-container > header > h5,
 .grey .view-header > h5,
 .grey .view-subtitle,
-.grey .subtitle,
-.grey .profile.view-container > form > .row > .col > div.card > section > p,
-.grey ul.list-view > li > section:first-child > div > h3.inactive,
-.grey ul.list-view > li > section:first-child > div > h3.inactive > a {
+.grey .subtitle {
   color: #657181;
 }
 
@@ -331,25 +280,20 @@
 .grey .view-container > form > div > section > p,
 .grey .section-body > p,
 .grey .brand,
-.grey ul.list-view > li > section:first-child > div > h4,
-.grey ul.list-view > li > section:first-child > div > h4 > a,
+.grey .img-card > h4,
 .grey .card > section > p,
 .grey .card > section > p > a,
 .grey .video > section > p,
 .grey .video > section > p > a,
-.grey li.video > h4 > a,
-.grey ul.list-view > li > section:first-child > div > p,
-.grey ul.list-view > li > div > h4,
-.grey ul.list-view > li > div > p,
-.grey ul.list-view > li > h4,
-.grey ul.list-view.horizon > li > a,
-.grey ul.list-view > li > p,
-.grey ul.list-view > li > p > a,
+.grey .video > p,
+.grey .video > h4 > a,
+.grey .img-card > p,
+.grey .horizon > li > a,
+.grey .list-item > a,
+.grey .img-item > a,
 .grey .table > thead > tr > th,
 .grey .table > thead > tr > th > a,
-.grey form.list-result > .table-responsive > table > thead > tr > th,
-.grey form.list-result > .table-responsive > table > thead > tr > th > button,
-.grey form.list-result > .table-responsive > table > thead > tr > th > a,
+.grey .table > thead > tr > th > button,
 .grey .view-container > form > div > h4,
 .grey .view-container > div > h4,
 .grey .view-body > h4,
@@ -383,7 +327,7 @@
   color: #393f48 !important;
 }
 /*
-.grey form.list-result > .table-responsive > table > thead > tr,
+.grey .table > thead > tr,
 .grey div.card {
   background-color: #e0e0e0;
 }
@@ -398,12 +342,6 @@
 .grey .view-body > label.focused,
 .grey .view-container > form > div > h2,
 .grey .card > section > h3,
-.grey ul.list-view > li > section:first-child > div > h3,
-.grey ul.list-view > li > section:first-child > div > h3 > a,
-.grey ul.list-view > li > div > h3,
-.grey ul.list-view > li > h3,
-.grey div.card > div > h3,
-.grey div.card > h3,
 .grey .card > footer > button,
 .grey .btn-select,
 .grey .btn-add,
@@ -591,8 +529,6 @@
 }
 
 .grey .diff .row .col p > span,
-.grey div.card > div > p,
-.grey article > address > label,
 .grey article > p > label,
 .grey section > p > label,
 .grey .view-container > form > div > section > article > p.remark,
@@ -686,10 +622,6 @@
   color: #657181 !important;
 }
 
-.grey .view-container > form > div > label.search-input > *,
-.grey .view-container > div > label.search-input > *,
-.grey .view-body > label.search-input > *,
-.grey .row > .col > label.search-input > *,
 .grey .row > label.search-input > *,
 .grey .search-input > * {
   border-color: #d1d9e1 !important;
@@ -698,13 +630,10 @@
   background: #fff;
   color: #fff;
 }
-.grey ul.list-view > li,
-.grey ul.list-view.row > li.col > *:last-child,
-.grey ul.list-view > li.section-container > section:first-child,
-.grey div.card,
+
 .grey .card > section,
 .grey .video > section,
-.grey ul.list-view.horizon > li.video {
+.grey .horizon > .video {
   border-color: #e0e0e0;
 }
 

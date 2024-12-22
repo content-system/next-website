@@ -6,7 +6,7 @@ export * from "./article"
 
 export class SqlArticleRepository extends Repository<Article, string> implements ArticleRepository {
   constructor(db: DB) {
-    super(db, "news", articleModel)
+    super(db, "articles", articleModel)
   }
 }
 export class ArticleManager extends Manager<Article, string, ArticleFilter> implements ArticleService {
@@ -16,7 +16,7 @@ export class ArticleManager extends Manager<Article, string, ArticleFilter> impl
 }
 
 export function useArticleService(db: DB): ArticleService {
-  const builder = new SearchBuilder<Article, ArticleFilter>(db.query, "news", articleModel, db.driver)
+  const builder = new SearchBuilder<Article, ArticleFilter>(db.query, "articles", articleModel, db.driver)
   const repository = new SqlArticleRepository(db)
   return new ArticleManager(builder.search, repository)
 }

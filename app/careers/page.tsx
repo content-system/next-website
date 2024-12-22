@@ -60,19 +60,12 @@ export default async function Careers({ searchParams }: Params) {
               list.length > 0 &&
               list.map((item, i) => {
                 return (
-                  <li key={i} className="col s12 m6 l4 xl3">
-                    <section>
-                      <div>
-                        <h4>
-                          <a href={`careers/${item.id}`}>{item.title}</a>
-                          <span>{item.quantity}</span>
-                        </h4>
-                        <p>
-                          {item.location}
-                          <span>{formatDateTime(item.publishedAt, dateFormat)}</span>
-                        </p>
-                      </div>
-                    </section>
+                  <li key={i} className="col s12 m6 l4 xl3 list-item">
+                    <a href={`careers/${item.id}`}>{item.title} <span>{item.quantity}</span></a>
+                    <p>
+                      {item.location}
+                      <span>{formatDateTime(item.publishedAt, dateFormat)}</span>
+                    </p>
                   </li>
                 )
               })}

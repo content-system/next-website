@@ -56,7 +56,7 @@ export default async function News({ searchParams }: Params) {
         </form>
         <form className="list-result">
           <div className="table-responsive">
-            <table>
+            <table className="table">
               <thead>
                 <tr>
                   <th>
