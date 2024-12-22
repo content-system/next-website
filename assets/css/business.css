@@ -1,0 +1,20 @@
+.view-container.companies > header > h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+.companies .img-card > h3 {
+  height: 40px;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+.companies .img-card > h4 {
+  height: 32px;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+.companies .img-card > p {
+  font-size: 14px;
+  font-weight: 500;
+}

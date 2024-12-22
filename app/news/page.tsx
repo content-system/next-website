@@ -91,7 +91,7 @@ export default async function News({ searchParams }: Params) {
               </tbody>
             </table>
           </div>
-          <ul className="row list-view">
+          <ul className="row list">
             {list &&
               list.length > 0 &&
               list.map((item, i) => {

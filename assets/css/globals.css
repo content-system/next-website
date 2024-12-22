@@ -24,6 +24,7 @@
 @import "./group.css";
 @import "./navigation.css";
 @import "./pagination.css";
+@import "./business.css";
 html,
 body {
   margin: 0;

@@ -17,6 +17,7 @@ export const vi = {
   grey_mode: "Grey mode",
   classic_menu: "Classic menu",
   modern_menu: "Modern menu",
+  companies: "Companies",
 
   read: "Read",
   write: "Write",
