@@ -1,6 +1,6 @@
-import { Manager, Search } from "onecore"
-import { DB, Repository, SearchBuilder } from "query-core"
-import { Contact, ContactFilter, contactModel, ContactRepository, ContactService } from "./contact"
+import { nanoid } from "nanoid"
+import { DB, Repository } from "query-core"
+import { Contact, contactModel, ContactRepository, ContactService } from "./contact"
 export * from "./contact"
 
 export class SqlContactRepository extends Repository<Contact, string> implements ContactRepository {
@@ -8,14 +8,17 @@ export class SqlContactRepository extends Repository<Contact, string> implements
     super(db, "contacts", contactModel)
   }
 }
-export class ContactManager extends Manager<Contact, string, ContactFilter> implements ContactService {
-  constructor(search: Search<Contact, ContactFilter>, repository: ContactRepository) {
-    super(search, repository)
+export class ContactUseCase implements ContactService {
+  constructor(private repository: ContactRepository) {
+    this.submit = this.submit.bind(this)
+  }
+  submit(contact: Contact): Promise<number> {
+    contact.id = nanoid(10)
+    contact.submittedAt = new Date()
+    return this.repository.create(contact)
   }
 }
-
 export function useContactService(db: DB): ContactService {
-  const builder = new SearchBuilder<Contact, ContactFilter>(db.query, "contacts", contactModel, db.driver)
   const repository = new SqlContactRepository(db)
-  return new ContactManager(builder.search, repository)
+  return new ContactUseCase(repository)
 }

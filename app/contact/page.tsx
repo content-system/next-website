@@ -1,13 +1,40 @@
+import ctx from "@core/context"
+import { fromFormData, printObject } from "@core/core-next"
 import { getResource } from "@resources/index"
-import { Contact } from "@service/contact"
+import { Contact, contactModel } from "@service/contact"
+import { headers } from "next/headers"
+import { redirect } from "next/navigation"
 import { formatPhone } from "web-one"
+import { validate } from "xvalidators"
 
-export default function ContactForm() {
+export default async function ContactForm() {
+  const headerList = headers()
+  const pathname = headerList.get("x-current-path")
+  console.log("Pathname " + pathname)
   const resource = getResource()
   const contact = {} as Contact
+  async function save(formData: FormData) {
+    "use server"
+    const obj = fromFormData<Contact>(formData, contactModel)
+    console.log("Print object " + JSON.stringify(obj))
+    printObject(obj)
+    const errors = validate<Contact>(obj, contactModel, resource)
+    if (errors.length > 0) {
+      console.log("Validation Error " + errors[0].message)
+      redirect("/works")
+    } else {
+      const result = await ctx.contact.submit(obj)
+      console.log("Result " + result)
+      if (result > 0) {
+        redirect("/news")
+      } else {
+        redirect("/leadership")
+      }
+    }
+  }
   return (
     <div className="view-container">
-      <form id="contactForm" name="contactForm">
+      <form id="contactForm" name="contactForm" noValidate={true} action={save}>
         <header>
           <h2>{resource.contact}</h2>
         </header>
