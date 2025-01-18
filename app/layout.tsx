@@ -41,9 +41,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="sidebar-parent menu-on">
             <div className="top-banner">
               <div className="logo-banner-wrapper">
-                <img src="https://jacobspradlin.files.wordpress.com/2014/10/banner-people-connected.png" alt="Banner of The Company" />
                 <img
-                  src="https://jacobspradlin.files.wordpress.com/2014/10/banner-people-connected.png"
+                  src="https://fptsoftware.com/-/media/project/fpt-software/fso/industries/industries-healthcare/healthcare-lp_banner.png"
+                  alt="Banner of The Company"
+                />
+                <img
+                  src="https://fptsoftware.com/-/media/project/fpt-software/fso/industries/banner/media-desktop.webp"
                   className="banner-logo-title"
                   alt="Logo of The Company"
                 />
@@ -64,13 +67,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       <button type="button" className="btn-pin"></button>
                       <i className="material-icons">home</i>
                       <span>Home</span>
-                    </a>
-                  </li>
-                  <li className="">
-                    <a className="menu-item" href="/works">
-                      <button type="button" className="btn-pin"></button>
-                      <i className="material-icons">assignments</i>
-                      <span>Works</span>
                     </a>
                   </li>
                   <li className="">

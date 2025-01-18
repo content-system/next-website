@@ -54,7 +54,7 @@ const items: Item[] = [
         icon: "local_atm",
       },
       {
-        name: "companies",
+        name: "Companies",
         resource: "companies",
         path: "/companies",
         icon: "zoom_in",

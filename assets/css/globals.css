@@ -15,7 +15,8 @@
 @import "./list-view.css";
 @import "./table.css";
 @import "./list-detail.css";
-@import "./solid-container.css";
+@import "./list-detail.css";
+@import "./data-list.css";
 @import "./button.css";
 @import "./search.css";
 @import "./layout.css";
