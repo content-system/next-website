@@ -21,7 +21,7 @@ export default async function News({ searchParams }: Params) {
         <h2>{resource.news}</h2>
       </header>
       <div>
-        <form id="articlesForm" name="articlesForm" noValidate={true} method="GET">
+        <form id="articlesForm" name="articlesForm" className="form" noValidate={true} method="GET">
           <section className="row search-group">
             <label className="col s12 m6 search-input">
               <input type="text" id="q" name="q" defaultValue={filter.q} maxLength={255} placeholder={resource.keyword} />
@@ -54,43 +54,7 @@ export default async function News({ searchParams }: Params) {
             </label>
           </section>
         </form>
-        <form className="list-result">
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>
-                    <a href={sort.id.url} dangerouslySetInnerHTML={{ __html: resource.id + sort.id.tag }}></a>
-                  </th>
-                  <th>
-                    <a href={sort.title.url} dangerouslySetInnerHTML={{ __html: resource.title + sort.title.tag }}></a>
-                  </th>
-                  <th className="datetime">
-                    <a href={sort.publishedAt.url} dangerouslySetInnerHTML={{ __html: resource.published_at + sort.publishedAt.tag }}></a>
-                  </th>
-                  <th>
-                    <a href={sort.description.url} dangerouslySetInnerHTML={{ __html: resource.description + sort.description.tag }}></a>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {list &&
-                  list.length > 0 &&
-                  list.map((item, i) => {
-                    return (
-                      <tr key={i}>
-                        <td>{item.id}</td>
-                        <td>
-                          <a href={`/news/${item.id}`}>{item.title}</a>
-                        </td>
-                        <td>{formatDateTime(item.publishedAt, dateFormat)}</td>
-                        <td>{item.description}</td>
-                      </tr>
-                    )
-                  })}
-              </tbody>
-            </table>
-          </div>
+        <form className="card-grid">
           <ul className="row list">
             {list &&
               list.length > 0 &&

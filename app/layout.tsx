@@ -9,7 +9,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta charSet="utf-8" />
         <link rel="icon" href="../public/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="color-scheme" content="light" />
+        <meta name="theme-color" content="#008577" />
         <meta name="description" content="Web site created using create-react-app" />
         <link rel="apple-touch-icon" href="../public/logo192.png" />
         <title>Next App</title>

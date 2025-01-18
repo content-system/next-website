@@ -21,7 +21,7 @@ export default async function Careers({ searchParams }: Params) {
         <h2>{resource.news}</h2>
       </header>
       <div>
-        <form id="jobsForm" name="jobsForm" noValidate={true} method="GET">
+        <form id="jobsForm" name="jobsForm" className="form" noValidate={true} method="GET">
           <section className="row search-group">
             <label className="col s12 m6 search-input">
               <input type="text" id="q" name="q" defaultValue={filter.q} maxLength={255} placeholder={resource.keyword} />
@@ -54,16 +54,16 @@ export default async function Careers({ searchParams }: Params) {
             </label>
           </section>
         </form>
-        <form className="list-result">
+        <form>
           <ul className="row list">
             {list &&
               list.length > 0 &&
               list.map((item, i) => {
                 return (
                   <li key={i} className="col s12 m6 l4 xl3 list-item">
-                    <a href={`careers/${item.id}`}>{item.title} <span>{item.quantity}</span></a>
+                    <a href={`careers/${item.id}`}>{item.title}</a>
                     <p>
-                      {item.location}
+                      {item.location} {item.quantity}
                       <span>{formatDateTime(item.publishedAt, dateFormat)}</span>
                     </p>
                   </li>

@@ -1,6 +1,6 @@
 export default function Leadership() {
   return (
-    <div className="view-container">
+    <div>
       <header>
         <h2>Leadership</h2>
       </header>
