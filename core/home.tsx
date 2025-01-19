@@ -12,12 +12,6 @@ const items: Item[] = [
     icon: "home",
   },
   {
-    name: "Works",
-    resource: "works",
-    path: "/works",
-    icon: "assignments",
-  },
-  {
     name: "Services",
     resource: "services",
     path: "/services",
