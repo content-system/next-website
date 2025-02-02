@@ -10,6 +10,6 @@ const cfg = config
 const logger = createLogger(cfg.log)
 const pool = new Pool(cfg.db)
 const db = log(new PoolManager(pool), cfg.log.db, logger, "sql")
-const ctx = useContext(db)
+const ctx = useContext(db, cfg.auth, cfg.map)
 
 export default ctx

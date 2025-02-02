@@ -1,5 +1,9 @@
+import ctx from "@core/context"
 import { getResource } from "@resources/index"
+import { redirect } from "next/navigation"
 import { Attributes, StringMap } from "onecore"
+import { fromFormData, Params } from "web-one"
+import { validate } from "xvalidators"
 
 export const userModel: Attributes = {
   username: {
@@ -12,6 +16,7 @@ export const userModel: Attributes = {
     length: 100,
     resource: "password",
   },
+  message: {},
 }
 export interface User {
   username: string
@@ -27,13 +32,34 @@ export const map: StringMap = {
   "9": "fail_disabled_account",
 }
 
-export default async function Login() {
+export default async function Login({ searchParams }: Params) {
   const resource = getResource()
-  const user = {} as User
-  user.message = "Login test"
+  let user = {} as User
+  user.username = searchParams.username
+  user.message = searchParams.message
+
+  async function login(formData: FormData) {
+    "use server"
+    const obj = fromFormData<User>(formData, userModel)
+    const errors = validate<User>(obj, userModel, resource)
+    if (errors.length > 0) {
+      const message = errors[0].message || ""
+      redirect(`/login?username=${encodeURI(obj.username)}&message=${encodeURI(message)}`)
+    } else {
+      const result = await ctx.authenticator.authenticate(obj)
+      console.log("Result " + result.status)
+      if (result.status === 1) {
+        redirect("/news")
+      } else {
+        let key: string | undefined = map["" + result.status]
+        const message = key ? resource[key] : resource.fail_authentication
+        redirect(`/login?username=${encodeURI(obj.username)}&message=${encodeURI(message)}`)
+      }
+    }
+  }
   return (
     <div className="central-full">
-      <form id="signinForm" name="signinForm" className="form" noValidate={true} autoComplete="off" method="POST">
+      <form id="signinForm" name="signinForm" className="form" noValidate={true} autoComplete="off" action={login}>
         <div className="view-body row">
           <img className="logo" src="/logo192.png" alt="logo" />
           <h1>{resource.signin}</h1>
@@ -46,7 +72,7 @@ export default async function Login() {
             {resource.password}
             <input type="password" id="password" name="password" defaultValue={user.password} maxLength={100} placeholder={resource.placeholder_password} />
           </label>
-          <label hidden className="col s12">
+          <label className="col s12" hidden>
             {resource.passcode}
             <input type="password" id="passcode" name="passcode" value={user.passcode} maxLength={10} placeholder={resource.placeholder_passcode} />
           </label>
