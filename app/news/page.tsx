@@ -54,7 +54,7 @@ export default async function News({ searchParams }: Params) {
             </label>
           </section>
         </form>
-        <form className="card-grid">
+        <form>
           <ul className="row list">
             {list &&
               list.length > 0 &&

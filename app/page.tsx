@@ -5,7 +5,7 @@ export default function Home() {
         <h1>FPT Software</h1>
       </header>
       <div className="view-body">
-        <section className="row">
+        <section className="row section">
           <p className="col s12">
             FPT Software Company Limited, also known simply as Fsoft is a global IT services provider headquartered in Hanoi, Vietnam, being the core subsidiary
             of the FPT Corporation. It is considered one of the biggest software services companies in Vietnam, with US$1.87 billion in revenue (FY2022) and
@@ -14,7 +14,7 @@ export default function Home() {
         </section>
         <section>
           <h2>Why us?</h2>
-          <ul className="row list card-grid">
+          <ul className="row list">
             <li className="col s12 l6 xl3 card">
               <section>
                 <h3>Talent Hub</h3>
@@ -52,7 +52,7 @@ export default function Home() {
         </section>
         <section>
           <h2>Vision, Mission &amp; Core Value</h2>
-          <ul className="row list card-grid">
+          <ul className="row list">
             <li className="col s12 m4 card">
               <section>
                 <h3>Our Vision</h3>
@@ -121,7 +121,7 @@ export default function Home() {
           </ul>
         </section>
         <section>
-          <h2>Leadership</h2>
+          <h2 className="header">Leadership</h2>
           <h3>Board Of Management</h3>
           <ul className="row list">
             <li className="col s6 m4 l3 img-card">
