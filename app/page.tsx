@@ -5,13 +5,11 @@ export default function Home() {
         <h1>FPT Software</h1>
       </header>
       <div className="view-body">
-        <section className="row section">
-          <p className="col s12">
-            FPT Software Company Limited, also known simply as Fsoft is a global IT services provider headquartered in Hanoi, Vietnam, being the core subsidiary
-            of the FPT Corporation. It is considered one of the biggest software services companies in Vietnam, with US$1.87 billion in revenue (FY2022) and
-            more than 48,000 core employees.
-          </p>
-        </section>
+        <p className="p">
+          FPT Software Company Limited, also known simply as Fsoft is a global IT services provider headquartered in Hanoi, Vietnam, being the core subsidiary
+          of the FPT Corporation. It is considered one of the biggest software services companies in Vietnam, with US$1.87 billion in revenue (FY2022) and more
+          than 48,000 core employees.
+        </p>
         <section>
           <h2>Why us?</h2>
           <ul className="row list">
@@ -120,28 +118,28 @@ export default function Home() {
             </li>
           </ul>
         </section>
-        <section>
+        <section className="section">
           <h2 className="header">Leadership</h2>
           <h3>Board Of Management</h3>
           <ul className="row list">
             <li className="col s6 m4 l3 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/chu-thi-thanh-ha.webp" />
-              <h4 className="center">Chu Thi Thanh Ha</h4>
+              <h3 className="center">Chu Thi Thanh Ha</h3>
               <p className="center">Chairwoman, FPT Software</p>
             </li>
             <li className="col s6 m4 l3 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/pham-minh-tuan.webp" />
-              <h4 className="center">Pham Minh Tuan</h4>
+              <h3 className="center">Pham Minh Tuan</h3>
               <p className="center">Chief Executive Officer, FPT Software</p>
             </li>
             <li className="col s6 m4 l3 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/nguyen-khai-hoan.webp" />
-              <h4 className="center">Nguyen Khai Hoan</h4>
+              <h3 className="center">Nguyen Khai Hoan</h3>
               <p className="center">Chief Operating Officer</p>
             </li>
             <li className="col s6 m4 l3 push-m4 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/dao-duy-cuong.webp" />
-              <h4 className="center">Dao Duy Cuong</h4>
+              <h3 className="center">Dao Duy Cuong</h3>
               <p className="center">Chief Technology Officer</p>
             </li>
           </ul>
@@ -149,22 +147,22 @@ export default function Home() {
           <ul className="row list">
             <li className="col s6 m4 l3 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/do-van-khac.webp" />
-              <h4 className="center">Do Van Khac</h4>
+              <h3 className="center">Do Van Khac</h3>
               <p className="center">Chief Executive Officer, FPT Japan</p>
             </li>
             <li className="col s6 m4 l3 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/dang-tran-phuong.webp" />
-              <h4 className="center">Dang Tran Phuong</h4>
+              <h3 className="center">Dang Tran Phuong</h3>
               <p className="center">Chief Executive Officer, FPT Software America</p>
             </li>
             <li className="col s6 m4 l3 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/mark-scrivens.webp" />
-              <h4 className="center">Mark Scrivens</h4>
+              <h3 className="center">Mark Scrivens</h3>
               <p className="center">Chief Executive Officer, FPT Software United Kingdom</p>
             </li>
             <li className="col s6 m4 l3 push-m4 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/christophe-schwanegel.webp" />
-              <h4 className="center">Christophe Schwanengel</h4>
+              <h3 className="center">Christophe Schwanengel</h3>
               <p className="center">Chief Executive Officer, FPT Software France</p>
             </li>
           </ul>

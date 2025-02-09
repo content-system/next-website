@@ -87,9 +87,9 @@ export default async function ContactForm() {
             placeholder={resource.phone}
           />
         </label>
-        <label className="col s12 m12 required">
+        <label className="col s12 m12 textarea-container required">
           {resource.message}
-          <textarea id="message" name="message" defaultValue={contact.message} maxLength={400} placeholder={resource.message} />
+          <textarea id="message" name="message" rows={6} defaultValue={contact.message} maxLength={400} placeholder={resource.message} />
         </label>
       </div>
       <footer>

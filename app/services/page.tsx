@@ -5,7 +5,7 @@ export default function Services() {
         <h1>Services</h1>
       </header>
       <div>
-        <h4>FPT specializes in creating software solutions for various industries - spanning different levels and requirements.</h4>
+        <h4 className="h4">FPT specializes in creating software solutions for various industries - spanning different levels and requirements.</h4>
         <ul className="row list">
           <li className="col s6 l3 img-card">
             <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/services/product-engineering-services/automative-services/auto-services-lp_banner-mobile.webp"></img>
