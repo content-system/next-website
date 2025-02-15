@@ -118,8 +118,8 @@ export default function Home() {
             </li>
           </ul>
         </section>
+        <h2>Leadership</h2>
         <section className="section">
-          <h2 className="header">Leadership</h2>
           <h3>Board Of Management</h3>
           <ul className="row list">
             <li className="col s6 m4 l3 img-card">
