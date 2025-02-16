@@ -97,13 +97,13 @@ ul.list.row > li.col > *:first-child {
 .img-item > *:last-child {
   border-bottom: 1px solid #ebebeb;
 }
-.small.img-item > *:last-child {
+.list-item > *:last-child {
   min-height: 30px;
 }
 .img-item > *:last-child {
   min-height: 33px;
 }
-.list-item > *:last-child {
+.small.img-item > *:last-child {
   min-height: 30px;
 }
 .img-item > img {
