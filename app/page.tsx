@@ -120,7 +120,7 @@ export default function Home() {
         </section>
         <h2>Leadership</h2>
         <section className="section">
-          <h3>Board Of Management</h3>
+          <h2>Board Of Management</h2>
           <ul className="row list">
             <li className="col s6 m4 l3 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/chu-thi-thanh-ha.webp" />
@@ -143,7 +143,7 @@ export default function Home() {
               <p className="center">Chief Technology Officer</p>
             </li>
           </ul>
-          <h3>Global Management</h3>
+          <h2>Global Management</h2>
           <ul className="row list">
             <li className="col s6 m4 l3 img-card">
               <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/uplift/board-of-management/board-of-management/do-van-khac.webp" />
