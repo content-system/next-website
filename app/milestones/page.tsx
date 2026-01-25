@@ -4,7 +4,7 @@ export default function Milestones() {
       <header>
         <h1>Milestones</h1>
       </header>
-      <div>
+      <div className="main-body">
         <dl className="data-list row">
           <dt className="col s2 l1 right-align">1999</dt>
           <dd className="col s10 l11">FPT Software was founded in 1999 by 13 members of FPT Group, led by Nguyen Thanh Nam</dd>

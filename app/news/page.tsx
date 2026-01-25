@@ -20,7 +20,7 @@ export default async function News({ searchParams }: Params) {
       <header>
         <h2>{resource.news}</h2>
       </header>
-      <div>
+      <div className="search-body">
         <form id="articlesForm" name="articlesForm" className="form" noValidate={true} method="GET">
           <section className="row search-group">
             <label className="col s12 m6 search-input">

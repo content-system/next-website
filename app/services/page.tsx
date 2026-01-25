@@ -4,7 +4,7 @@ export default function Services() {
       <header>
         <h1>Services</h1>
       </header>
-      <div>
+      <div className="main-body">
         <h4 className="h4">FPT specializes in creating software solutions for various industries - spanning different levels and requirements.</h4>
         <ul className="row list">
           <li className="col s6 l3 img-card">

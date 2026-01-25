@@ -4,7 +4,7 @@ export default function Leadership() {
       <header>
         <h1>Leadership</h1>
       </header>
-      <div>
+      <div className="main-body">
         <h2>Board Of Management</h2>
         <ul className="row list">
           <li className="col s6 m4 l3 img-card">

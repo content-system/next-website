@@ -7,7 +7,7 @@ export default function Companies() {
       <header>
         <h1>Companies</h1>
       </header>
-      <div>
+      <div className="main-body">
         <h2>Vertical Industry</h2>
         <ul className="row list">
           <li className="col s12 l6 img-card">
