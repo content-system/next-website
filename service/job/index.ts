@@ -1,22 +1,31 @@
-import { Manager, Search } from "onecore"
-import { DB, Repository, SearchBuilder } from "query-core"
+import { SearchResult } from "onecore"
+import { DB, SearchRepository } from "query-core"
 import { Job, JobFilter, jobModel, JobRepository, JobService } from "./job"
-
+import { buildQuery } from "./query"
 export * from "./job"
 
-export class SqlJobRepository extends Repository<Job, string> implements JobRepository {
+export class SqlJobRepository extends SearchRepository<Job, JobFilter> implements JobRepository {
   constructor(db: DB) {
-    super(db, "jobs", jobModel)
+    super(db.query, "jobs", jobModel, db.driver, buildQuery)
+  }
+  async load(id: string): Promise<Job | null> {
+    const query = `select * from jobs where slug = ${this.param(1)}`
+    const jobs = await this.query<Job>(query, [id], this.map)
+    return jobs && jobs.length > 0 ? jobs[0] : null
   }
 }
-export class JobManager extends Manager<Job, string, JobFilter> implements JobService {
-  constructor(search: Search<Job, JobFilter>, repository: JobRepository) {
-    super(search, repository)
+
+export class JobUseCase implements JobService {
+  constructor(private repository: JobRepository) {}
+  search(filter: JobFilter, limit: number, page?: number, fields?: string[]): Promise<SearchResult<Job>> {
+    return this.repository.search(filter, limit, page, fields)
+  }
+  load(id: string): Promise<Job | null> {
+    return this.repository.load(id)
   }
 }
 
 export function useJobService(db: DB): JobService {
-  const builder = new SearchBuilder<Job, JobFilter>(db.query, "jobs", jobModel, db.driver)
   const repository = new SqlJobRepository(db)
-  return new JobManager(builder.search, repository)
+  return new JobUseCase(repository)
 }

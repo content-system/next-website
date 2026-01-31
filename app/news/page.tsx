@@ -63,7 +63,7 @@ export default async function News({ searchParams }: Params) {
                   <li key={i} className="col s12 m6 l4 xl3 card">
                     <section>
                       <div className="cover" style={{ backgroundImage: `url('${item.thumbnail}')` }}></div>
-                      <a href={`/news/${item.id}`}>{item.title}</a>
+                      <a href={`/news/${item.slug}`}>{item.title}</a>
                       <p>{formatDateTime(item.publishedAt, dateFormat)}</p>
                       <p>{item.description}</p>
                     </section>

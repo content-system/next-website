@@ -1,4 +1,4 @@
-import { Attributes, Filter, Repository } from "onecore"
+import { Attributes, Filter } from "onecore"
 
 export interface Contact {
   id: string
@@ -21,7 +21,9 @@ export interface ContactFilter extends Filter {
   phone: string
 }
 
-export interface ContactRepository extends Repository<Contact, string> {}
+export interface ContactRepository {
+  create(contact: Contact): Promise<number>
+}
 export interface ContactService {
   submit(contact: Contact): Promise<number>
 }

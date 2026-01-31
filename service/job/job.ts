@@ -1,29 +1,33 @@
-import { Attributes, Filter, Repository, Service, TimeRange } from "onecore"
+import { Attributes, Filter, SearchResult, TimeRange } from "onecore"
 
 export interface Job {
   id: string
-  title?: string
-  description?: string
-  requirements?: string
-  benefit?: string
+  slug: string
+  title: string
+  description: string
   publishedAt?: Date
   expiredAt?: Date
-  skill?: string[]
-  location?: string
+  company?: string
+  position?: string
   quantity?: number
+  location?: string
   applicantCount?: number
+  skills?: string[]
+  minSalary?: number
+  maxSalary?: number
   companyId?: string
   status: string
 }
 export interface JobFilter extends Filter {
   id?: string
+  slug?: string
   title?: string
   description?: string
   requirements?: string
   benefit?: string
   publishedAt?: TimeRange
   expiredAt?: TimeRange
-  skill?: string[]
+  skills?: string[]
   location?: string
   quantity?: number
   applicantCount?: number
@@ -31,8 +35,14 @@ export interface JobFilter extends Filter {
   status?: string
 }
 
-export interface JobRepository extends Repository<Job, string> {}
-export interface JobService extends Service<Job, string, JobFilter> {}
+export interface JobRepository {
+  search(filter: JobFilter, limit: number, page?: number, fields?: string[]): Promise<SearchResult<Job>>
+  load(id: string): Promise<Job | null>
+}
+export interface JobService {
+  search(filter: JobFilter, limit: number, page?: number, fields?: string[]): Promise<SearchResult<Job>>
+  load(id: string): Promise<Job | null>
+}
 
 export const jobModel: Attributes = {
   id: {
@@ -40,18 +50,15 @@ export const jobModel: Attributes = {
     required: true,
     key: true,
   },
+  slug: {
+    length: 150,
+  },
   title: {
-    length: 120,
+    length: 300,
     q: true,
   },
   description: {
-    length: 1000,
-  },
-  requirements: {
-    length: 1000,
-  },
-  benefit: {
-    length: 1000,
+    length: 9800,
   },
   publishedAt: {
     column: "published_at",
@@ -61,20 +68,32 @@ export const jobModel: Attributes = {
     column: "expired_at",
     type: "datetime",
   },
-  skills: {
-    type: "strings",
+  company: {
+    length: 40,
   },
-  location: {
-    length: 120,
+  position: {
+    length: 100,
   },
   quantity: {
     type: "integer",
+    min: 1,
+  },
+  location: {
+    length: 120,
   },
   applicantCount: {
     column: "applicant_count",
     type: "integer",
   },
-  companyId: {
-    column: "company_id",
+  skills: {
+    type: "strings",
+  },
+  minSalary: {
+    column: "min_salary",
+    type: "integer",
+  },
+  maxSalary: {
+    column: "max_salary",
+    type: "integer",
   },
 }

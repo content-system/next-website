@@ -1,28 +1,43 @@
-import { Attributes, Filter, Repository, Service, TimeRange } from "onecore"
+import { Attributes, Filter, SearchResult, TimeRange } from "onecore"
 
 export interface Article {
   id: string
+  slug: string
   title: string
   description?: string
   content: string
-  thumbnail?: string
-  publishedAt: Date
+  publishedAt?: Date
   tags?: string[]
-  type?: string
-  authorId?: string
+  thumbnail?: string
+  highThumbnail?: string
   status?: string
+  createdAt?: Date
+  authorId?: string
+  savedAt?: Date
 }
-
 export interface ArticleFilter extends Filter {
   id?: string
+  slug?: string
   title?: string
   description?: string
-  publishedAt?: TimeRange
+  status?: string
+  publishedAt: TimeRange
   tags?: string[]
+  authorId?: string
+  userId?: string
+  isSaved?: boolean
 }
 
-export interface ArticleRepository extends Repository<Article, string> {}
-export interface ArticleService extends Service<Article, string, ArticleFilter> {}
+export interface ArticleRepository {
+  search(filter: ArticleFilter, limit: number, page?: number, fields?: string[]): Promise<SearchResult<Article>>
+  load(id: string, userId?: string): Promise<Article | null>
+}
+export interface ArticleService {
+  search(filter: ArticleFilter, limit: number, page?: number, fields?: string[]): Promise<SearchResult<Article>>
+  load(id: string, userId?: string): Promise<Article | null>
+}
+
+export const Published = "P"
 
 export const articleModel: Attributes = {
   id: {
@@ -36,7 +51,7 @@ export const articleModel: Attributes = {
     q: true,
   },
   description: {
-    length: 1000,
+    length: 1200,
     required: true,
     q: true,
   },
@@ -45,21 +60,45 @@ export const articleModel: Attributes = {
     type: "datetime",
   },
   content: {
-    length: 5000,
+    length: 9500,
     required: true,
-  },
-  thumbnail: {},
-  highThumbnail: {
-    column: "high_thumbnail",
   },
   tags: {
     type: "strings",
   },
-  /*
-  author: {
-    length: 40,
+  thumbnail: {
+    length: 400,
   },
-  */
-  type: {},
-  status: {},
+  highThumbnail: {
+    column: "high_thumbnail",
+    length: 400,
+  },
+  authorId: {
+    column: "author_id",
+    length: 400,
+    noupdate: true,
+  },
+
+  createdBy: {
+    column: "created_by",
+    noupdate: true,
+  },
+  createdAt: {
+    column: "created_at",
+    type: "datetime",
+    noupdate: true,
+  },
+  updatedBy: {
+    column: "updated_by",
+  },
+  updatedAt: {
+    column: "updated_at",
+    type: "datetime",
+  },
+  savedAt: {
+    column: "saved_at",
+    type: "datetime",
+    noupdate: true,
+    noinsert: true,
+  },
 }
