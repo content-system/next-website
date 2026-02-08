@@ -6,7 +6,7 @@ export * from "./article"
 
 export class SqlArticleRepository extends SearchRepository<Article, ArticleFilter> implements ArticleRepository {
   constructor(db: DB) {
-    super(db.query, "articles", articleModel, db.driver, buildQuery)
+    super(db, "articles", articleModel, buildQuery)
   }
   async load(id: string, userId?: string): Promise<Article | null> {
     const params = []
@@ -15,13 +15,13 @@ export class SqlArticleRepository extends SearchRepository<Article, ArticleFilte
       query = `select a.*, sa.saved_at 
         from articles a 
         left join saved_articles sa 
-          on sa.id = a.id and sa.user_id = ${this.param(1)} where a.slug = ${this.param(2)}`
+          on sa.id = a.id and sa.user_id = ${this.db.param(1)} where a.slug = ${this.db.param(2)}`
       params.push(userId)
     } else {
-      query = `select a.* from articles a where a.slug = ${this.param(1)}`
+      query = `select a.* from articles a where a.slug = ${this.db.param(1)}`
     }
     params.push(id)
-    const articles = await this.query<Article>(query, params, this.map)
+    const articles = await this.db.query<Article>(query, params, this.map)
     return articles && articles.length > 0 ? articles[0] : null
   }
 }
