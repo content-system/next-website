@@ -60,7 +60,7 @@ export default async function News({ searchParams }: Params) {
               list.length > 0 &&
               list.map((item, i) => {
                 return (
-                  <li key={i} className="col s12 m6 l4 xl3 card">
+                  <li key={i} className="col s12 m6 l4 xl3 img-card">
                     <section>
                       <div className="cover" style={{ backgroundImage: `url('${item.thumbnail}')` }}></div>
                       <a href={`/news/${item.slug}`}>{item.title}</a>
