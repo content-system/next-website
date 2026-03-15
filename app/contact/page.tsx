@@ -8,7 +8,7 @@ import { formatPhone, fromFormData } from "web-one"
 import { validate } from "xvalidators"
 
 export default async function ContactForm() {
-  const headerList = headers()
+  const headerList = await headers()
   const pathname = headerList.get("x-current-path")
   console.log("Pathname " + pathname)
   const resource = getResource()

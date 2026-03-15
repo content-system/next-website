@@ -2,16 +2,18 @@ import { Pagination } from "@core/components/pagination"
 import ctx from "@core/context"
 import { getResource } from "@resources/index"
 import { JobFilter } from "@service/job"
-import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, getDateFormat, Params, removePage } from "web-one"
+import { StringMap } from "onecore"
+import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, getDateFormat, removePage } from "web-one"
 
 const fields = ["id", "title", "publishedAt", "description"]
 
-export default async function Careers({ searchParams }: Params) {
-  const filter = buildFilter<JobFilter>(searchParams, ["publishedAt"])
+export default async function Careers({searchParams}: {searchParams: Promise<StringMap>}) {
+  const query = await searchParams
+  const filter = buildFilter<JobFilter>(query, ["publishedAt"])
   const dateFormat = getDateFormat()
   const resource = getResource()
-  const search = removePage(searchParams)
-  const sort = buildSortSearch(searchParams, fields, filter.sort)
+  const search = removePage(query)
+  const sort = buildSortSearch(query, fields, filter.sort)
 
   const res = await ctx.job.search(clone(filter), filter.limit, filter.page)
   const list = res.list

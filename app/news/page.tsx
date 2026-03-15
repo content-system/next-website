@@ -2,16 +2,18 @@ import { Pagination } from "@core/components/pagination"
 import ctx from "@core/context"
 import { getResource } from "@resources/index"
 import { ArticleFilter } from "@service/article"
-import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, getDateFormat, Params, removePage } from "web-one"
+import { StringMap } from "onecore"
+import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, getDateFormat, removePage } from "web-one"
 
 const fields = ["id", "title", "publishedAt", "description"]
 
-export default async function News({ searchParams }: Params) {
-  const filter = buildFilter<ArticleFilter>(searchParams, ["publishedAt"])
+export default async function News({searchParams}: {searchParams: Promise<StringMap>}) {
+  const query = await searchParams
+  const filter = buildFilter<ArticleFilter>(query, ["publishedAt"])
   const dateFormat = getDateFormat()
   const resource = getResource()
-  const search = removePage(searchParams)
-  const sort = buildSortSearch(searchParams, fields, filter.sort)
+  const search = removePage(query)
+  const sort = buildSortSearch(query, fields, filter.sort)
 
   const res = await ctx.article.search(clone(filter), filter.limit, filter.page)
   const list = res.list

@@ -1,8 +1,9 @@
 import ctx from "@core/context"
-import { formatDateTime, getDateFormat, Params } from "web-one"
+import { formatDateTime, getDateFormat } from "web-one"
 
-export default async function Job({ params: { id } }: Params) {
+export default async function Job({params}: {params: Promise<{ id: string }>}) {
   const dateFormat = getDateFormat()
+  const { id } = await params
   const job = await ctx.job.load(id)
   return (
     <article className="article">

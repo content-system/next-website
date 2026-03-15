@@ -1,10 +1,11 @@
 import ctx from "@core/context"
-import { formatDateTime, getDateFormat, Params } from "web-one"
+import { formatDateTime, getDateFormat } from "web-one"
 
 const fields = ["id", "title", "publishedAt", "description"]
 
-export default async function Article({ params: { id } }: Params) {
+export default async function Article({params}: {params: Promise<{ id: string }>}) {
   const dateFormat = getDateFormat()
+  const { id } = await params
   const article = await ctx.article.load(id)
   return (
     <article className="article">

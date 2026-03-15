@@ -12,7 +12,7 @@ export default function Companies() {
         <ul className="row list">
           <li className="col s12 l6 img-card">
             <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/industries/banner/media-desktop.webp"></img>
-            <h3>FPT Media & Entertainment</h3>
+            <h3 className="highlight">FPT Media & Entertainment</h3>
             <h4>Take the lead in the race of customer-driven content</h4>
             <p>
               For more than 20 years, FPT Software has helped multiple communications, media, and entertainment companies accelerate their roadmaps, rapidly
@@ -25,7 +25,7 @@ export default function Companies() {
           </li>
           <li className="col s12 l6 img-card">
             <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/industries/industries-healthcare/healthcare-lp_banner.png"></img>
-            <h3>FPT Healthcare</h3>
+            <h3 className="highlight">FPT Healthcare</h3>
             <h4>Transform the journey of care through the power of technology and human expertise</h4>
             <p>The healthcare industry is witnessing a dramatic transformation marked by changing customer expectations and increased regulations.</p>
             <p>
@@ -37,7 +37,7 @@ export default function Companies() {
           </li>
           <li className="col s12 l6 img-card">
             <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/industries/automotive/automotive-lp_banner-3.png"></img>
-            <h3>FPT Automotive</h3>
+            <h3 className="highlight">FPT Automotive</h3>
             <h4>Moving into the fast lane of smart, software-defined mobility</h4>
             <p>
               With two decades of experience in the Automotive industry, FPT Software's automotive technology subsidiary, FPT Automotive was launched in 2023
@@ -52,7 +52,7 @@ export default function Companies() {
           </li>
           <li className="col s12 l6 img-card">
             <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/industries/logistics/2880x1000-min.png"></img>
-            <h3>FPT Logistics</h3>
+            <h3 className="highlight">FPT Logistics</h3>
             <h4>Make substantial and bold moves toward resilience and profitability</h4>
             <p>
               Logistics is at a tipping point for transformation while contending with evolving customer expectations and volatile disruption. Now is the time
@@ -66,7 +66,7 @@ export default function Companies() {
           </li>
           <li className="col s12 l6 img-card">
             <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/industries/bfsi/banner-2.png"></img>
-            <h3>FPT Banking, Financial Services & Insurance</h3>
+            <h3 className="highlight">FPT Banking, Financial Services & Insurance</h3>
             <h4>Defy the speed of change and realize the industry’s full potential with digitization</h4>
             <p>
               In the fast-changing digital age, banking and financial institutions, which can be famously conservative, are faced with the choice to adopt a
@@ -80,7 +80,7 @@ export default function Companies() {
           </li>
           <li className="col s12 l6 img-card">
             <img src="https://fptsoftware.com/-/media/project/fpt-software/fso/industries/manufacturing/ldp_manufacturing_banner1-min.png"></img>
-            <h3>FPT Manufacturing</h3>
+            <h3 className="highlight">FPT Manufacturing</h3>
             <h4>Bridging the gap between Production Strategy and Execution with digitization, analytics, and industry insights</h4>
             <p>
               In today's volatile, uncertain, complex, and ambiguous (VUCA) business landscape, agility and resilience are no longer enough - companies must

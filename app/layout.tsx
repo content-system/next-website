@@ -3,8 +3,8 @@ import LayoutPage from "@core/layout"
 import { headers } from "next/headers"
 import Script from "next/script"
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const headerList = headers()
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headerList = await headers()
   const pathname = headerList.get("x-current-path")
   const hasLayout = pathname && !pathname.endsWith("/login")
 
