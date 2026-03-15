@@ -1,5 +1,5 @@
 import { Authenticator, initializeStatus, SqlAuthTemplateConfig, User, useUserRepository } from "authen-service"
-import { compare } from "bcrypt"
+import { compare } from "bcryptjs"
 import { StringMap } from "onecore"
 import { DB } from "query-core"
 import { ArticleService, useArticleService } from "./article"
