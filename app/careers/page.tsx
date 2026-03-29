@@ -22,7 +22,7 @@ export default async function Careers({searchParams}: {searchParams: Promise<Str
       <header>
         <h2>{resource.news}</h2>
       </header>
-      <div className="search-body">
+      <div className="main-body">
         <form id="jobsForm" name="jobsForm" className="form" noValidate={true} method="GET">
           <section className="row search-group">
             <label className="col s12 m6 search-input">
