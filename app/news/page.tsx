@@ -2,6 +2,7 @@ import { Pagination } from "@core/components/pagination"
 import ctx from "@core/context"
 import { getResource } from "@resources/index"
 import { ArticleFilter } from "@service/article"
+import Link from "next/link"
 import { StringMap } from "onecore"
 import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, getDateFormat, removePage } from "web-one"
 
@@ -65,7 +66,7 @@ export default async function News({searchParams}: {searchParams: Promise<String
                   <li key={i} className="col s12 m6 l4 xl3 img-card">
                     <section>
                       <div className="cover" style={{ backgroundImage: `url('${item.thumbnail}')` }}></div>
-                      <a href={`/news/${item.slug}`}>{item.title}</a>
+                      <Link href={`news/${item.slug}`} prefetch={false}>{item.title}</Link>
                       <p>{formatDateTime(item.publishedAt, dateFormat)}</p>
                       <p>{item.description}</p>
                     </section>

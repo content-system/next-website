@@ -2,6 +2,7 @@ import { Pagination } from "@core/components/pagination"
 import ctx from "@core/context"
 import { getResource } from "@resources/index"
 import { JobFilter } from "@service/job"
+import Link from "next/link"
 import { StringMap } from "onecore"
 import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, getDateFormat, removePage } from "web-one"
 
@@ -63,7 +64,7 @@ export default async function Careers({searchParams}: {searchParams: Promise<Str
               list.map((item, i) => {
                 return (
                   <li key={i} className="col s12 m6 l4 xl3 list-item">
-                    <a href={`careers/${item.slug}`}>{item.title}</a>
+                    <Link href={`careers/${item.slug}`} prefetch={false}>{item.title}</Link>
                     <p>
                       {item.location} {item.quantity}
                       <span>{formatDateTime(item.publishedAt, dateFormat)}</span>
