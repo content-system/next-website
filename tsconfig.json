@@ -35,8 +35,8 @@
       "@service/*": [
         "service/*"
       ],
-      "@resources/*": [
-        "resources/*"
+      "@resources": [
+        "resources/index"
       ]
     },
     "target": "ES2015"

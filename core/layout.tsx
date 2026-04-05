@@ -1,6 +1,18 @@
 import { Nav } from "@components/nav";
+import { getLangByPath, getResource } from "@resources";
+import { rebuildPath } from "@service/menu";
+import { headers } from "next/headers";
+import ctx from "./context";
 
-export default function LayoutPage({ children }: { children: React.ReactNode }) {
+export default async function LayoutPage({ children }: { children: React.ReactNode }) {
+  const headerList = await headers()
+  const pathname = headerList.get("x-current-path")
+  const lang = getLangByPath(pathname)
+  const resource = getResource(lang)
+  const items = await ctx.menu.load()
+  if (lang !== "en") {
+    rebuildPath(items, lang)
+  }
   return (
     <div id="root">
       <div className="sidebar-parent menu-on">
@@ -18,7 +30,7 @@ export default function LayoutPage({ children }: { children: React.ReactNode }) 
           </div>
         </div>
         <div className="menu sidebar">
-          <Nav/>
+          <Nav items={items} resource={resource}/>
         </div>
         <div className="page-container">
           <div className="page-header">

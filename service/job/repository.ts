@@ -9,14 +9,14 @@ export class SqlJobRepository extends SearchRepository<Job, JobFilter> implement
   }
   async load(id: string): Promise<Job | null> {
     const query = `select * from jobs where slug = ${this.db.param(1)}`
-    const jobs = await this.db.query<Job>(query, [id], this.map)
+    const jobs = await this.db.query<Job>(query, [id], this.map, this.bools)
     return jobs && jobs.length > 0 ? jobs[0] : null
   }
 }
 
 export function buildQuery(filter: JobFilter): Statement {
   let query = `select * from jobs`
-  const where = []
+  const where: string[] = []
   const params = []
   let i = 1
 
@@ -36,22 +36,17 @@ export function buildQuery(filter: JobFilter): Statement {
     }
   }
 
-  if (filter.id && filter.id.length > 0) {
-    where.push(`id = ${param(i++)}`)
-    params.push(filter.id)
-  }
-
-  if (filter.q && filter.q.length > 0) {
-    const q = "%" + filter.q.replace(/%/g, "\\%").replace(/_/g, "\\_") + "%"
+  if (filter.q) {
+    const q = filter.q.replace(/%/g, "\\%").replace(/_/g, "\\_")
     where.push(`title ilike ${param(i++)}`)
-    params.push(q)
+    params.push(`%${q}%`)
   }
 
   if (where.length > 0) {
     query = query + ` where ` + where.join(` and `)
   }
   const orderBy = buildSort(filter.sort, jobModel)
-  if (orderBy.length > 0) {
+  if (orderBy) {
     query = query + ` order by ${orderBy}`
   }
   return { query, params }

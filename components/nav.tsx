@@ -1,30 +1,64 @@
-import Link from 'next/link'
-import { NavClient } from './nav-client'
+import Link from "next/link"
+import { StringMap } from "onecore"
+import { NavClient } from "./nav-client"
 
+export interface Props {
+  items: MenuItem[]
+  resource?: StringMap
+}
 export interface MenuItem {
   id: string
   name: string
   path: string
   resource?: string
   icon?: string
-  sequence?: number
-  type?: string
   children?: MenuItem[]
 }
+export function getName(name: string, key?: string, resource?: StringMap): string {
+  if (!resource || !key) {
+    return name
+  }
+  return resource[key] || name
+}
 
-const menus: MenuItem[] = [{ "id": "home", "name": "Home", "path": "/", "resource": "home", "icon": "home", "sequence": 1, "type": "content" }, { "id": "services", "name": "Services", "path": "/services", "resource": "services", "icon": "settings", "sequence": 2, "type": "content" }, { "id": "news", "name": "News", "path": "/news", "resource": "news", "icon": "credit_card", "sequence": 3, "type": "" }, { "id": "careers", "name": "Careers", "path": "/careers", "resource": "careers", "icon": "work", "sequence": 4, "type": "" }, { "id": "contact", "name": "Contact", "path": "/contact", "resource": "contact", "icon": "mail", "sequence": 5, "type": "" }, { "id": "about", "name": "About", "path": "/about", "resource": "about", "icon": "assignment", "sequence": 6, "type": "", "children": [{ "id": "milestones", "name": "Milestones", "path": "/milestones", "resource": "milestones", "icon": "public", "sequence": 1, "type": "content" }, { "id": "companies", "name": "Companies", "path": "/companies", "resource": "companies", "icon": "account_balance", "sequence": 2, "type": "content" }, { "id": "leadership", "name": "Leadership", "path": "/leadership", "resource": "leadership", "icon": "person", "sequence": 3, "type": "content" }] }]
-export function Nav() {
+export function Nav(props: Props) {
   return (
     <nav id="sysNav" className="expanded-all">
       <ul>
-        {menus.map((m) => (
-          <NavClient key={m.path} href={m.path}>
-            <Link href={m.path} className="menu-item" prefetch={false}>
-              <i className="material-icons">{m.icon}</i>
-              <span>{m.name}</span>
-            </Link>  
-          </NavClient>
-        ))}
+        {props.items.map((m) =>
+          m.children && m.children.length > 0 ? (
+            <li className="open" key={m.id}>
+              <div className="menu-item">
+                <i className="material-icons">{m.icon}</i>
+                <span>
+                  {getName(m.name, m.resource, props.resource)}
+                </span>
+                <i className="entity-icon down"></i>
+              </div>
+              <ul className="sub-list expanded">
+                {m.children.map((s) => (
+                  <NavClient key={s.path} href={s.path}>
+                    <Link href={s.path} className="menu-item" prefetch={false}>
+                      <i className="material-icons">{s.icon}</i>
+                      <span>
+                        {getName(s.name, s.resource, props.resource)}
+                      </span>
+                    </Link>
+                  </NavClient>
+                ))}
+              </ul>
+            </li>
+          ) : (
+            <NavClient key={m.path} href={m.path}>
+              <Link href={m.path} className="menu-item" prefetch={false}>
+                <i className="material-icons">{m.icon}</i>
+                <span>
+                  {getName(m.name, m.resource, props.resource)}
+                </span>
+              </Link>
+            </NavClient>
+          )
+        )}
       </ul>
     </nav>
   )

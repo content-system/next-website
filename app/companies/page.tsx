@@ -1,4 +1,4 @@
-import { getResource } from "@resources/index"
+import { getResource } from "@resources"
 
 export default function Companies() {
   const resource = getResource()

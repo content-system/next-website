@@ -1,6 +1,6 @@
 import ctx from "@core/context"
 import { printObject } from "@core/core-next"
-import { getResource } from "@resources/index"
+import { getResource } from "@resources"
 import { Contact, contactModel } from "@service/contact"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"

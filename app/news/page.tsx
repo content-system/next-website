@@ -1,6 +1,6 @@
 import { Pagination } from "@components/pagination"
 import ctx from "@core/context"
-import { getResource } from "@resources/index"
+import { getLang, getResource } from "@resources"
 import { ArticleFilter } from "@service/article"
 import Link from "next/link"
 import { StringMap } from "onecore"
@@ -10,9 +10,10 @@ const fields = ["id", "title", "publishedAt", "description"]
 
 export default async function News({searchParams}: {searchParams: Promise<StringMap>}) {
   const query = await searchParams
-  const filter = buildFilter<ArticleFilter>(query, ["publishedAt"])
+  const lang = getLang(query)
+  const resource = getResource(lang)
   const dateFormat = getDateFormat()
-  const resource = getResource()
+  const filter = buildFilter<ArticleFilter>(query, ["publishedAt"])
   const search = removePage(query)
   const sort = buildSortSearch(query, fields, filter.sort)
 
@@ -66,7 +67,7 @@ export default async function News({searchParams}: {searchParams: Promise<String
                   <li key={i} className="col s12 m6 l4 xl3 img-card">
                     <section>
                       <div className="cover" style={{ backgroundImage: `url('${item.thumbnail}')` }}></div>
-                      <Link href={`news/${item.slug}`} prefetch={false}>{item.title}</Link>
+                      <Link href={`/news/${item.slug}`} prefetch={false}>{item.title}</Link>
                       <p>{formatDateTime(item.publishedAt, dateFormat)}</p>
                       <p>{item.description}</p>
                     </section>

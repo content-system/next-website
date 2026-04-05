@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export interface Props {
   className?: string
   total?: number
@@ -92,26 +94,22 @@ export function Pagination(props: Props) {
           (p, i) =>
             (p === LEFT_PAGE && (
               <li className="page-item left" key={i}>
-                <a className="page-link" aria-label="Previous" href={getSearch(search, page - 1)}>
+                <Link className="page-link" aria-label="Previous" href={getSearch(search, page - 1)} prefetch={false}>
                   <span aria-hidde="true">'\u00AB'</span>
                   <span className="sr-only">Previous</span>
-                </a>
+                </Link>
               </li>
             )) ||
             (p === RIGHT_PAGE && (
               <li className="page-item right" key={i}>
-                <a className="page-link" aria-label="Next" href={getSearch(search, page + 1)}>
+                <Link className="page-link" aria-label="Previous" href={getSearch(search, page + 1)} prefetch={false}>
                   <span aria-hidde="true">'\u00BB'</span>
                   <span className="sr-only">Next</span>
-                </a>
+                </Link>
               </li>
             )) || (
               <li className={"page-item" + (p == page ? " active" : "")} key={i}>
-                {p != page && (
-                  <a className="page-link" href={getSearch(search, p)}>
-                    {p}
-                  </a>
-                )}
+                {p != page && <Link className="page-link" href={getSearch(search, p)} prefetch={false}>{p}</Link>}
                 {p == page && <span className="page-link">{p}</span>}
               </li>
             ),

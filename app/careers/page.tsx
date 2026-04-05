@@ -1,6 +1,6 @@
 import { Pagination } from "@components/pagination"
 import ctx from "@core/context"
-import { getResource } from "@resources/index"
+import { getLang, getResource } from "@resources"
 import { JobFilter } from "@service/job"
 import Link from "next/link"
 import { StringMap } from "onecore"
@@ -10,9 +10,10 @@ const fields = ["id", "title", "publishedAt", "description"]
 
 export default async function Careers({searchParams}: {searchParams: Promise<StringMap>}) {
   const query = await searchParams
-  const filter = buildFilter<JobFilter>(query, ["publishedAt"])
+  const lang = getLang(query)
+  const resource = getResource(lang)
   const dateFormat = getDateFormat()
-  const resource = getResource()
+  const filter = buildFilter<JobFilter>(query, ["publishedAt"])
   const search = removePage(query)
   const sort = buildSortSearch(query, fields, filter.sort)
 
@@ -64,7 +65,7 @@ export default async function Careers({searchParams}: {searchParams: Promise<Str
               list.map((item, i) => {
                 return (
                   <li key={i} className="col s12 m6 l4 xl3 list-item">
-                    <Link href={`careers/${item.slug}`} prefetch={false}>{item.title}</Link>
+                    <Link href={`/careers/${item.slug}`} prefetch={false}>{item.title}</Link>
                     <p>
                       {item.location} {item.quantity}
                       <span>{formatDateTime(item.publishedAt, dateFormat)}</span>

@@ -1,5 +1,5 @@
 import ctx from "@core/context"
-import { getResource } from "@resources/index"
+import { getResource } from "@resources"
 import { redirect } from "next/navigation"
 import { Attributes, StringMap } from "onecore"
 import { fromFormData, Params } from "web-one"
