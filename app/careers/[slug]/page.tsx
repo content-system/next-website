@@ -4,13 +4,13 @@ import { ctx } from "@service";
 import { formatDateTime, getDateFormat } from "web-one";
 
 type StringMap = Record<string, string | string[] | undefined>
-export default async function Job({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<StringMap> }) {
+export default async function Job({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<StringMap> }) {
   const query = await searchParams
   const lang = getLang(query)
   const resource = getResource(lang)
   const dateFormat = getDateFormat()
-  const { id } = await params
-  const job = await ctx.job.load(id)
+  const { slug } = await params
+  const job = await ctx.job.load(slug)
   return (
     !job ? <Error title={resource.error_404_title} description={resource.error_404_message} /> : (
       <article className="article" >
