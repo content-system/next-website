@@ -1,4 +1,4 @@
-import { Nav } from "@core/components/nav";
+import { Nav } from "@components/nav";
 
 export default function LayoutPage({ children }: { children: React.ReactNode }) {
   return (

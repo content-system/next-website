@@ -1,4 +1,4 @@
-import { Pagination } from "@core/components/pagination"
+import { Pagination } from "@components/pagination"
 import ctx from "@core/context"
 import { getResource } from "@resources/index"
 import { JobFilter } from "@service/job"
