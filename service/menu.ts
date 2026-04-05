@@ -5,6 +5,7 @@ export interface MenuItem {
   resource?: string
   icon?: string
   sequence?: number
+  prefetch?: boolean
   type?: string
   children?: MenuItem[]
 }
@@ -15,6 +16,7 @@ export interface Category {
   resource?: string
   icon?: string
   sequence?: number
+  prefetch?: boolean
   type?: string
   parent?: string
   children?: MenuItem[]
@@ -25,9 +27,7 @@ export class MenuItemLoader {
   }
   load(): Promise<MenuItem[]> {
     return this.query<Category>(this.sql).then((categories) => {
-      const x = toMenuItems(categories)
-      console.log(JSON.stringify(x))
-      return x
+      return toMenuItems(categories)
     })
   }
 }

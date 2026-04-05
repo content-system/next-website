@@ -1,5 +1,5 @@
 import "@assets/css/globals.css"
-import LayoutPage from "@core/layout"
+import LayoutPage from "@components/layout"
 import { headers } from "next/headers"
 import Script from "next/script"
 

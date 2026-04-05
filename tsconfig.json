@@ -29,8 +29,8 @@
       "@components/*": [
         "components/*"
       ],
-      "@core/*": [
-        "core/*"
+      "@service": [
+        "service/index"
       ],
       "@service/*": [
         "service/*"

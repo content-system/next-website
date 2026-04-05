@@ -1,11 +1,18 @@
-import ctx from "@core/context"
-import { printObject } from "@core/core-next"
 import { getResource } from "@resources"
+import { ctx } from "@service"
 import { Contact, contactModel } from "@service/contact"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { formatPhone, fromFormData } from "web-one"
 import { validate } from "xvalidators"
+
+export function printObject(obj: any): void {
+  const keys = Object.keys(obj)
+  for (const k of keys) {
+    const v = obj[k]
+    console.log("key " + k + ": " + v)
+  }
+}
 
 export default async function ContactForm() {
   const headerList = await headers()

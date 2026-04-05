@@ -1,6 +1,6 @@
 import { Pagination } from "@components/pagination"
-import ctx from "@core/context"
 import { getLang, getResource } from "@resources"
+import { ctx } from "@service"
 import { JobFilter } from "@service/job"
 import Link from "next/link"
 import { StringMap } from "onecore"
@@ -8,7 +8,7 @@ import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, 
 
 const fields = ["id", "title", "publishedAt", "description"]
 
-export default async function Careers({searchParams}: {searchParams: Promise<StringMap>}) {
+export default async function Careers({ searchParams }: { searchParams: Promise<StringMap> }) {
   const query = await searchParams
   const lang = getLang(query)
   const resource = getResource(lang)

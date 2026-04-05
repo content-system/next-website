@@ -1,6 +1,6 @@
 import { Error } from "@components/error"
-import ctx from "@core/context"
 import { getResource } from "@resources"
+import { ctx } from "@service"
 
 export default async function DynamicContent({ params }: { params: Promise<{ id: string }> }) {
   const resource = getResource("en")

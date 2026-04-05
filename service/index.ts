@@ -1,7 +1,10 @@
 import { Authenticator, initializeStatus, SqlAuthTemplateConfig, User, useUserRepository } from "authen-service"
 import { compare } from "bcryptjs"
 import { StringMap } from "onecore"
+import { Pool } from "pg"
+import { PoolManager } from "pg-extension"
 import { DB } from "query-core"
+import { config } from "../config"
 import { ArticleService, useArticleService } from "./article"
 import { ContactService, useContactService } from "./contact"
 import { ContentService, useContentService } from "./content"
@@ -32,3 +35,9 @@ export function useContext(db: DB, auth: SqlAuthTemplateConfig, map: StringMap):
 
   return { authenticator, menu, content, article, job, contact }
 }
+
+const cfg = config
+
+const pool = new Pool(cfg.db)
+const db = new PoolManager(pool)
+export const ctx = useContext(db, cfg.auth, cfg.map)
