@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { NavClient } from './nav-client'
 
 export interface MenuItem {
   id: string
@@ -17,12 +18,12 @@ export function Nav() {
     <nav id="sysNav" className="expanded-all">
       <ul>
         {menus.map((m) => (
-          <li key={m.id}>
+          <NavClient key={m.path} href={m.path}>
             <Link href={m.path} className="menu-item" prefetch={false}>
               <i className="material-icons">{m.icon}</i>
               <span>{m.name}</span>
             </Link>  
-          </li>
+          </NavClient>
         ))}
       </ul>
     </nav>
