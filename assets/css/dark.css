@@ -28,6 +28,7 @@
 
 .dark body,
 .dark .page-container,
+.dark .alert-wrapper .alert,
 .dark .dropdown-menu-profile {
   background-color: #000;
 }
@@ -102,7 +103,7 @@
 
 
 .dark .cover > i:first-child {
-  background: #ffffff;
+  background: #fff;
   color: #000;
 }
 
@@ -181,7 +182,7 @@
 .dark .btn-review:hover,
 .dark .btn-more:hover,
 .dark footer > button:hover {
-  box-shadow: 0 1px 3px 1px #565656;
+  box-shadow: #565656;
 }
 
 .dark .btn-delete {
@@ -365,6 +366,7 @@
 .dark .page-body > .form > header,
 .dark .page-body > article > header,
 .dark .page-body > div > header,
+.dark .content-container > div > header,
 .dark .view-header {
   color: #4db6ac;
   background-color: #000;
@@ -373,11 +375,11 @@
 
 .dark .toast-message {
   background-color: #cacaca;
-  color: #000000;
+  color: #000;
 }
 .dark .sidebar {
   background-color: #121212;
-  color: #ffffff;
+  color: #fff;
   border-color: #00574b;
 }
 
@@ -392,7 +394,7 @@
   background: #4b4f4f; /* #07843b */
 }
 .dark .sidebar .menu-item {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark .btn-more,
@@ -429,7 +431,6 @@
 .dark .view-footer > button,
 .dark footer > button {
   color: #000;
-  background-color: #4db6ac;
 }
 .dark .btn-secondary {
   color: #4db6ac;
@@ -444,6 +445,7 @@
   .dark .page-body > .form > header,
   .dark .page-body > article > header,
   .dark .page-body > div > header,
+  .dark .content-container > div > header,
   .dark .view-header {
     color: #000;
     background-image: linear-gradient(90deg, #008577, #00574b);
@@ -458,6 +460,7 @@
 
   .dark .page-body > .form > header > h2,
   .dark .page-body > div > header > h2,
+  .dark .content-container > div > header > h2,
   .dark .view-header > h2,
   .dark header > .btn-group > button,
   .dark header > .btn-group > *,
@@ -559,6 +562,6 @@
 
 .dark .table > tbody > tr:nth-of-type(odd),
 .dark .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #000000;
+  background-color: #000;
 }
 /* end bootstrap only */

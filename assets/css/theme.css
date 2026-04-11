@@ -18,6 +18,7 @@
 
 body,
 .page-container,
+.alert-wrapper .alert,
 .dropdown-menu-profile {
   background-color: #fff;
 }
@@ -330,6 +331,7 @@ select.valid {
 .page-body > .form > header,
 .page-body > article > header,
 .page-body > div > header,
+.content-container > div > header,
 .view-header {
   color: #4db6ac;
   background-color: #fff;
@@ -407,6 +409,7 @@ h3.header {
   .page-body > .form > header,
   .page-body > article > header,
   .page-body > div > header,
+  .content-container > div > header,
   .view-header {
     color: #fff;
     background-image: linear-gradient(90deg, #008577, #00574b);
@@ -421,6 +424,7 @@ h3.header {
 
   .page-body > .form > header > h2,
   .page-body > div > header > h2,
+  .content-container > div > header > h2,
   .view-header > h2,
   header > .btn-group > button,
   header > .btn-group > button,
@@ -523,6 +527,6 @@ table > thead > tr > th,
 
 table > tbody > tr:nth-of-type(odd),
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 /* end bootstrap only */

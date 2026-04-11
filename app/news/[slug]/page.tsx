@@ -1,14 +1,16 @@
 import { Error } from "@components/error";
 import { getLang, getResource } from "@resources";
 import { ctx } from "@service";
-import { formatDateTime, getDateFormat } from "web-one";
+import { enLocale, getLocale } from "locale-service";
+import { formatDateTime } from "web-one";
 
 type StringMap = Record<string, string | string[] | undefined>
 export default async function Article({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<StringMap> }) {
   const query = await searchParams
   const lang = getLang(query)
   const resource = getResource(lang)
-  const dateFormat = getDateFormat()
+  const locale = getLocale(lang) || enLocale
+  const dateFormat = locale.dateFormat
   const { slug } = await params
   const article = await ctx.article.load(slug)
   return (

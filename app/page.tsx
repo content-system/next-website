@@ -4,7 +4,7 @@ export default function Home() {
       <header>
         <h1>FPT Software</h1>
       </header>
-      <div className="view-body">
+      <div className="main-body">
         <p className="p">
           FPT Software Company Limited, also known simply as Fsoft is a global IT services provider headquartered in Hanoi, Vietnam, being the core subsidiary
           of the FPT Corporation. It is considered one of the biggest software services companies in Vietnam, with US$1.87 billion in revenue (FY2022) and more
