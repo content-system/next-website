@@ -8,7 +8,7 @@ import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, 
 
 const fields = ["id", "title", "publishedAt", "description"]
 
-export default async function News({searchParams}: {searchParams: Promise<Record<string, string | string[] | undefined>>}) {
+export default async function News({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams
   const lang = getLang(query)
   const resource = getResource(lang)
@@ -61,20 +61,18 @@ export default async function News({searchParams}: {searchParams: Promise<Record
         </form>
         <form>
           <ul className="row list card-grid">
-            {list &&
-              list.length > 0 &&
-              list.map((item, i) => {
-                return (
-                  <li key={i} className="col s12 m6 l4 xl3 img-card">
-                    <section>
-                      <div className="cover" style={{ backgroundImage: `url('${item.thumbnail}')` }}></div>
-                      <Link href={`/news/${item.slug}?lang=${lang}`} prefetch={false}>{item.title}</Link>
-                      <p>{formatDateTime(item.publishedAt, dateFormat)}</p>
-                      <p>{item.description}</p>
-                    </section>
-                  </li>
-                )
-              })}
+            {list.map((item, i) => {
+              return (
+                <li key={i} className="col s12 m6 l4 xl3 img-card">
+                  <section>
+                    <div className="cover" style={{ backgroundImage: `url('${item.thumbnail}')` }}></div>
+                    <Link href={`/news/${item.slug}?lang=${lang}`} prefetch={false}>{item.title}</Link>
+                    <p>{formatDateTime(item.publishedAt, dateFormat)}</p>
+                    <p>{item.description}</p>
+                  </section>
+                </li>
+              )
+            })}
           </ul>
         </form>
       </div>

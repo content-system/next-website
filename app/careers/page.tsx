@@ -61,19 +61,17 @@ export default async function Careers({ searchParams }: { searchParams: Promise<
         </form>
         <form>
           <ul className="row list">
-            {list &&
-              list.length > 0 &&
-              list.map((item, i) => {
-                return (
-                  <li key={i} className="col s12 m6 l4 xl3 list-item">
-                    <Link href={`/careers/${item.slug}?lang=${lang}`} prefetch={false}>{item.title}</Link>
-                    <p>
-                      {item.location} {item.quantity}
-                      <span>{formatDateTime(item.publishedAt, dateFormat)}</span>
-                    </p>
-                  </li>
-                )
-              })}
+            {list.map((item, i) => {
+              return (
+                <li key={i} className="col s12 m6 l4 xl3 list-item">
+                  <Link href={`/careers/${item.slug}?lang=${lang}`} prefetch={false}>{item.title}</Link>
+                  <p>
+                    {item.location} {item.quantity}
+                    <span>{formatDateTime(item.publishedAt, dateFormat)}</span>
+                  </p>
+                </li>
+              )
+            })}
           </ul>
         </form>
       </div>
