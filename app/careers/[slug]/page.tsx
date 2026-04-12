@@ -1,6 +1,6 @@
 import { Error } from "@components/error";
 import { getLang, getResource } from "@resources";
-import { ctx } from "@service";
+import { getJobService } from "@service/job";
 import { enLocale, getLocale } from "locale-service";
 import { formatDateTime } from "web-one";
 
@@ -11,7 +11,8 @@ export default async function Job({ params, searchParams }: { params: Promise<{ 
   const locale = getLocale(lang) || enLocale
   const dateFormat = locale.dateFormat
   const { slug } = await params
-  const job = await ctx.job.load(slug)
+  const service = getJobService()
+  const job = await service.load(slug)
   return (
     !job ? <Error title={resource.error_404_title} message={resource.error_404_message} /> : (
       <article className="article" >

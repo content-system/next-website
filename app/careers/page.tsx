@@ -1,7 +1,6 @@
 import { Pagination } from "@components/pagination"
 import { getLang, getResource } from "@resources"
-import { ctx } from "@service"
-import { JobFilter } from "@service/job"
+import { getJobService, JobFilter } from "@service/job"
 import { enLocale, getLocale } from "locale-service"
 import Link from "next/link"
 import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, removePage } from "web-one"
@@ -18,7 +17,8 @@ export default async function Careers({ searchParams }: { searchParams: Promise<
   const search = removePage(query)
   const sort = buildSortSearch(query, fields, filter.sort)
 
-  const res = await ctx.job.search(clone(filter), filter.limit, filter.page)
+  const service = getJobService()
+  const res = await service.search(clone(filter), filter.limit, filter.page)
   const list = res.list
   return (
     <div className="view-container">

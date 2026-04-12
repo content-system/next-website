@@ -1,3 +1,4 @@
+import { db } from "@lib/db"
 import { SearchResult } from "onecore"
 import { DB } from "query-core"
 import { Job, JobFilter, JobRepository, JobService } from "./job"
@@ -17,4 +18,12 @@ export class JobUseCase implements JobService {
 export function useJobService(db: DB): JobService {
   const repository = new SqlJobRepository(db)
   return new JobUseCase(repository)
+}
+
+let jobService: JobService | undefined
+export function getJobService(): JobService {
+  if (!jobService) {
+    jobService = useJobService(db)
+  }
+  return jobService
 }
