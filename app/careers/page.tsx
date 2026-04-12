@@ -4,12 +4,11 @@ import { ctx } from "@service"
 import { JobFilter } from "@service/job"
 import { enLocale, getLocale } from "locale-service"
 import Link from "next/link"
-import { StringMap } from "onecore"
 import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, removePage } from "web-one"
 
 const fields = ["id", "title", "publishedAt", "description"]
 
-export default async function Careers({ searchParams }: { searchParams: Promise<StringMap> }) {
+export default async function Careers({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams
   const lang = getLang(query)
   const resource = getResource(lang)

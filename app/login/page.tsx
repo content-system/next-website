@@ -2,7 +2,7 @@ import { getResource } from "@resources"
 import { ctx } from "@service"
 import { redirect } from "next/navigation"
 import { Attributes, StringMap } from "onecore"
-import { fromFormData, Params } from "web-one"
+import { fromFormData } from "web-one"
 import { validate } from "xvalidators"
 
 export const userModel: Attributes = {
@@ -32,11 +32,12 @@ export const map: StringMap = {
   "9": "fail_disabled_account",
 }
 
-export default async function Login({ searchParams }: Params) {
+export default async function Login({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const resource = getResource()
+  const query = await searchParams
   let user = {} as User
-  user.username = searchParams.username
-  user.message = searchParams.message
+  user.username = query.username as string
+  user.message = query.message as string
 
   async function login(formData: FormData) {
     "use server"

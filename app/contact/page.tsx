@@ -1,7 +1,6 @@
-import { getResource } from "@resources"
+import { getLang, getResource } from "@resources"
 import { ctx } from "@service"
 import { Contact, contactModel } from "@service/contact"
-import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { formatPhone, fromFormData } from "web-one"
 import { validate } from "xvalidators"
@@ -14,11 +13,11 @@ export function printObject(obj: any): void {
   }
 }
 
-export default async function ContactForm() {
-  const headerList = await headers()
-  const pathname = headerList.get("x-current-path")
-  console.log("Pathname " + pathname)
-  const resource = getResource()
+export default async function ContactForm({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const query = await searchParams
+  const lang = getLang(query)
+  const resource = getResource(lang)
+
   const contact = {} as Contact
   async function save(formData: FormData) {
     "use server"

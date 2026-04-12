@@ -4,8 +4,7 @@ import { ctx } from "@service";
 import { enLocale, getLocale } from "locale-service";
 import { formatDateTime } from "web-one";
 
-type StringMap = Record<string, string | string[] | undefined>
-export default async function Job({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<StringMap> }) {
+export default async function Job({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams
   const lang = getLang(query)
   const resource = getResource(lang)
