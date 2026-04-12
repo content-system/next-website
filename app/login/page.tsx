@@ -1,5 +1,6 @@
+import { getAuthenticator } from "@lib/authentication"
 import { getResource } from "@resources"
-import { ctx } from "@service"
+import Link from "next/link"
 import { redirect } from "next/navigation"
 import { Attributes, StringMap } from "onecore"
 import { fromFormData } from "web-one"
@@ -47,7 +48,8 @@ export default async function Login({ searchParams }: { searchParams: Promise<Re
       const message = errors[0].message || ""
       redirect(`/login?username=${encodeURI(obj.username)}&message=${encodeURI(message)}`)
     } else {
-      const result = await ctx.authenticator.authenticate(obj)
+      const service = getAuthenticator()
+      const result = await service.authenticate(obj)
       console.log("Result " + result.status)
       if (result.status === 1) {
         redirect("/news")
@@ -84,15 +86,15 @@ export default async function Login({ searchParams }: { searchParams: Promise<Re
           <button type="submit" id="btnSignin" name="btnSignin">
             {resource.button_signin}
           </button>
-          <a id="btnForgotPassword" href="/forgot-password">
+          <Link id="btnForgotPassword" href="/forgot-password">
             {resource.button_forgot_password}
-          </a>
-          <a id="btnSignup" href="/signup">
+          </Link>
+          <Link id="btnSignup" href="/signup">
             {resource.button_signup}
-          </a>
-          <a id="btnHome" href="/">
+          </Link>
+          <Link id="btnHome" href="/">
             {resource.button_home}
-          </a>
+          </Link>
         </div>
       </form>
     </div>

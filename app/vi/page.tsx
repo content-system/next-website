@@ -1,14 +1,24 @@
 import { Error } from "@components/error"
+import { logger, toString } from "@lib/logger"
 import { getResource } from "@resources"
-import { ctx } from "@service"
+import { getContentService } from "@service/content"
+import { headers } from "next/headers"
 
 export default async function DynamicContent() {
   const resource = getResource("vi")
-  const content = await ctx.content.load("home", "vi")
 
-  return !content ? (
-    <Error title={resource.error_404_title} message={resource.error_404_message}/>
-  ) : (
-    <div className="content-container" dangerouslySetInnerHTML={{ __html: content.body || "" }}></div>
-  )
+  const service = getContentService()
+  try {
+    const content = await service.load("home", "vi")
+    if (!content) {
+      const headerList = await headers()
+      const pathname = headerList.get("x-current-path")
+      logger.warn(`Content not found: ${pathname}`)
+      return <Error title={resource.error_404_title} message={resource.error_404_message} />
+    }
+    return <div className="content-container" dangerouslySetInnerHTML={{ __html: content.body || "" }}></div>
+  } catch (err) {
+    logger.error(toString(err))
+    return <Error title={resource.error_500_title} message={resource.error_500_message} />
+  }
 }

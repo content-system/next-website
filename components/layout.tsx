@@ -1,15 +1,22 @@
 import { Nav } from "@components/nav";
+import { getMenu } from "@lib/menu";
 import { getLangByPath, getResource } from "@resources";
-import { ctx } from "@service";
 import { headers } from "next/headers";
+import Link from "next/link";
 import { rebuildPath } from "web-one";
+import { ToggleMenu } from "./client";
+import { ToggleSidebar, ToggleTheme } from "./menu";
 
+function cloneArrayShallow<T>(arr: T[]): T[] {
+  return arr.map(item => ({ ...item }));
+}
 export default async function LayoutPage({ children }: { children: React.ReactNode }) {
   const headerList = await headers()
   const pathname = headerList.get("x-current-path")
   const lang = getLangByPath(pathname)
   const resource = getResource(lang)
-  const items = await ctx.menu.load()
+  const rootItems = await getMenu()
+  const items = lang !== "en" ? cloneArrayShallow(rootItems) : rootItems
   if (lang !== "en") {
     rebuildPath(items, lang)
   }
@@ -30,14 +37,14 @@ export default async function LayoutPage({ children }: { children: React.ReactNo
           </div>
         </div>
         <div className="menu sidebar">
-          <Nav items={items} resource={resource}/>
+          <Nav items={items} resource={resource} />
         </div>
         <div className="page-container">
           <div className="page-header">
             <form>
               <div className="search-group">
                 <section>
-                  <button type="button" className="toggle-menu"></button>
+                  <ToggleMenu className="toggle-menu" />
                   <button type="button" className="toggle-search"></button>
                   <button type="button" className="close-search"></button>
                 </section>
@@ -53,19 +60,13 @@ export default async function LayoutPage({ children }: { children: React.ReactNo
                   <div className="dropdown-menu-profile">
                     <i className="material-icons">person</i>
                     <ul id="dropdown-basic" className="dropdown-content-profile">
-                      <li className="menu" data-menu="Menu" data-sidebar="Sidebar">
-                        <i className="material-icons">credit_card</i>
-                        <span>Menu</span>
-                      </li>
+                      <ToggleSidebar className="menu" mode="menu" sidebarText={resource.sidebar} sidebarIcon="view_list" menuText={resource.menu} menuIcon="credit_card" />
                       <hr />
-                      <li>
-                        <i className="material-icons">timelapse</i>
-                        <span>Dark mode</span>
-                      </li>
+                      <ToggleTheme theme="light" darkText={resource.dark_mode} darkIcon="timelapse" lightText={resource.light_mode} lightIcon="radio_button_checked" />
                       <hr />
                       <li>
                         <i className="material-icons">account_circle</i>
-                        <a href="/settings">kaka</a>
+                        <Link href="/settings">kaka</Link>
                       </li>
                       <hr />
                       <li>

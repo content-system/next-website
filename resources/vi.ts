@@ -123,12 +123,20 @@ export const vi = {
   job_title: "Chức danh",
   message: "Tin nhắn",
 
-  published_at: "Published At",
+  published_at: "Đăng lúc",
   published_at_from: "Đăng sau khi",
   published_at_to: "Đăng trước khi",
 
   quantity: "Số lượng",
   location: "Vị trí",
   skills: "Kỹ năng",
-  tags: "Tags",
+  tags: "Thẻ",
+  skill_placeholder: "Nhập kỹ năng...",
+  tag_placeholder: "Nhập thẻ...",
+
+  sort_time_desc: "Mới nhất",
+  sort_time_asc: "Cũ nhất",
+  
+  sort_desc_time_desc: "Sắp xếp theo Mới nhất",
+  sort_desc_time_asc: "Sắp xếp theo Cũ nhất",
 }

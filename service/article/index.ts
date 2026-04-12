@@ -1,5 +1,5 @@
+import { db } from "@lib/db"
 import { SearchResult } from "onecore"
-import { DB } from "query-core"
 import { Article, ArticleFilter, ArticleRepository, ArticleService } from "./article"
 import { SqlArticleRepository } from "./repository"
 export * from "./article"
@@ -15,7 +15,12 @@ export class ArticleUseCase implements ArticleService {
   }
 }
 
-export function useArticleService(db: DB): ArticleService {
-  const repository = new SqlArticleRepository(db)
-  return new ArticleUseCase(repository)
+let articleService: ArticleService | undefined
+export function getArticleService(): ArticleService {
+  console.log("enter getArticleService")
+  if (!articleService) {
+    const repository = new SqlArticleRepository(db)
+    articleService = new ArticleUseCase(repository)
+  }
+  return articleService
 }

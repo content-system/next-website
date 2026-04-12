@@ -1,24 +1,29 @@
+import BackButton from "@components/client";
 import { Error } from "@components/error";
-import { getLang, getResource } from "@resources";
+import { logger, toString } from "@lib/logger";
+import { getDateFormat, getLang, getResource } from "@resources";
 import { getJobService } from "@service/job";
-import { enLocale, getLocale } from "locale-service";
 import { formatDateTime } from "web-one";
 
 export default async function Job({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams
   const lang = getLang(query)
   const resource = getResource(lang)
-  const locale = getLocale(lang) || enLocale
-  const dateFormat = locale.dateFormat
   const { slug } = await params
+
   const service = getJobService()
-  const job = await service.load(slug)
-  return (
-    !job ? <Error title={resource.error_404_title} message={resource.error_404_message} /> : (
+  try {
+    const job = await service.load(slug)
+    if (!job) {
+      logger.warn(`Job not found: ${slug}`)
+      return <Error title={resource.error_404_title} message={resource.error_404_message} />
+    }
+    const dateFormat = getDateFormat(lang)
+    return (
       <article className="article" >
         <header>
-          <button type="button" id="btnBack" name="btnBack" className="btn-back" />
-          <h2>{job?.title}</h2>
+          <BackButton id="backBtn" name="backBtn" className="btn-back" />
+          <h2>{job.title}</h2>
         </header>
         <div className="article-body">
           <h3 className="article-description">
@@ -32,5 +37,8 @@ export default async function Job({ params, searchParams }: { params: Promise<{ 
         </div>
       </article >
     )
-  )
+  } catch (err) {
+    logger.error(toString(err))
+    return <Error title={resource.error_500_title} message={resource.error_500_message} />
+  }
 }

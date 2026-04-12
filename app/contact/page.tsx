@@ -1,6 +1,5 @@
 import { getLang, getResource } from "@resources"
-import { ctx } from "@service"
-import { Contact, contactModel } from "@service/contact"
+import { Contact, contactModel, getContactService } from "@service/contact"
 import { redirect } from "next/navigation"
 import { formatPhone, fromFormData } from "web-one"
 import { validate } from "xvalidators"
@@ -29,7 +28,8 @@ export default async function ContactForm({ searchParams }: { searchParams: Prom
       console.log("Validation Error " + errors[0].message)
       redirect("/works")
     } else {
-      const result = await ctx.contact.submit(obj)
+      const service = getContactService()
+      const result = await service.submit(obj)
       console.log("Result " + result)
       if (result > 0) {
         redirect("/news")

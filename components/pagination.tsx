@@ -87,6 +87,9 @@ export function Pagination(props: Props) {
   }
 
   const pages = fetchPageNumbers()
+  if (pages.length <= 1) {
+    return null
+  }
   return (
     <nav className={props.className} aria-label="Pagination">
       <ul className="pagination">

@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { StringMap } from "onecore"
-import { NavClient } from "./nav-client"
+import { NavClient, ToggleMenu } from "./client"
 
 export interface Props {
   items: MenuItem[]
@@ -25,6 +25,9 @@ export function Nav(props: Props) {
   return (
     <nav id="sysNav" className="expanded-all">
       <ul>
+        <li>
+          <p className="sidebar-off-menu"><ToggleMenu className="toggle" /></p>
+        </li>
         {props.items.map((m) =>
           m.children && m.children.length > 0 ? (
             <li className="open" key={m.id}>

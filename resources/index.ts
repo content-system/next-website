@@ -1,18 +1,16 @@
-import { en as adminEN } from "./admin/en"
-import { vi as adminVI } from "./admin/vi"
+import { enLocale, getLocale } from "locale-service"
+import { StringMap } from "onecore"
 import { en as authenticationEN } from "./authentication/en"
 import { vi as authenticationVI } from "./authentication/vi"
 import { en as commonEN } from "./en"
 import { vi as commonVI } from "./vi"
 
-export interface Resource {
-  resource(): StringMap
-  value(key: string, param?: any): string
-  format(f: string, ...args: any[]): string
-}
-export interface StringMap {
-  [key: string]: string
-}
+export const limits = [12, 24, 60, 100, 120, 180, 300, 600]
+export const defaultLimit = 12
+export const sort = "sort"
+export const page = "page"
+export const limit = "limit"
+
 export interface Resources {
   [key: string]: StringMap
 }
@@ -20,17 +18,29 @@ export interface Resources {
 const en: StringMap = {
   ...commonEN,
   ...authenticationEN,
-  ...adminEN,
 }
 const vi: StringMap = {
   ...commonVI,
   ...authenticationVI,
-  ...adminVI,
 }
 
 export const resources: Resources = {
   en: en,
   vi: vi,
+}
+
+export function getDateFormat(lang?: string): string {
+  if (!lang) {
+    return enLocale.dateFormat
+  }
+  const locale = getLocale(lang) || enLocale
+  return locale.dateFormat
+}
+export function isDefaultLang(lang?: string): boolean {
+  return !lang || lang === "en"
+}
+export function getLangSearch(lang?: string): string {
+  return (!lang || lang === "en") ? "" : `?lang=${lang}`
 }
 
 export function getResource(lang?: string | null): StringMap {

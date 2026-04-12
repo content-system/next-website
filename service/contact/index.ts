@@ -1,3 +1,4 @@
+import { db } from "@lib/db"
 import { nanoid } from "nanoid"
 import { CRUDRepository, DB } from "query-core"
 import { Contact, contactModel, ContactRepository, ContactService } from "./contact"
@@ -9,7 +10,7 @@ export class SqlContactRepository extends CRUDRepository<Contact, string> implem
   }
 }
 export class ContactUseCase implements ContactService {
-  constructor(private repository: ContactRepository) {}
+  constructor(private repository: ContactRepository) { }
   submit(contact: Contact): Promise<number> {
     contact.id = nanoid(10)
     contact.submittedAt = new Date()
@@ -17,7 +18,11 @@ export class ContactUseCase implements ContactService {
   }
 }
 
-export function useContactService(db: DB): ContactService {
-  const repository = new SqlContactRepository(db)
-  return new ContactUseCase(repository)
+let contactService: ContactService | undefined
+export function getContactService(): ContactService {
+  if (!contactService) {
+    const repository = new SqlContactRepository(db)
+    contactService = new ContactUseCase(repository)
+  }
+  return contactService
 }

@@ -1,70 +1,87 @@
+import { ToggleSearch } from "@components/client"
+import { Error } from "@components/error"
+import { Limit } from "@components/limit"
 import { Pagination } from "@components/pagination"
-import { getLang, getResource } from "@resources"
+import { Item, Sort } from "@components/sort"
+import { logger, toString } from "@lib/logger"
+import { defaultLimit, getDateFormat, getLang, getLangSearch, getResource, isDefaultLang, limits, sort } from "@resources"
 import { getJobService, JobFilter } from "@service/job"
-import { enLocale, getLocale } from "locale-service"
+import Form from "next/form"
 import Link from "next/link"
-import { buildFilter, buildSortSearch, clone, datetimeToString, formatDateTime, removePage } from "web-one"
-
-const fields = ["id", "title", "publishedAt", "description"]
+import { buildFilter, datetimeToString, formatDateTime, removePage, removeSort } from "web-one"
 
 export default async function Careers({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams
   const lang = getLang(query)
   const resource = getResource(lang)
-  const locale = getLocale(lang) || enLocale
-  const dateFormat = locale.dateFormat
-  const filter = buildFilter<JobFilter>(query, ["publishedAt"])
-  const search = removePage(query)
-  const sort = buildSortSearch(query, fields, filter.sort)
 
+  const filter = buildFilter<JobFilter>(query, ["publishedAt"])
+  const limit = filter.limit || defaultLimit
   const service = getJobService()
-  const res = await service.search(clone(filter), filter.limit, filter.page)
-  const list = res.list
-  return (
-    <div className="view-container">
-      <header>
-        <h2>{resource.news}</h2>
-      </header>
-      <div className="main-body">
-        <form id="jobsForm" name="jobsForm" className="form" noValidate={true} method="GET">
-          <section className="row search-group">
-            <label className="col s12 m6 search-input">
-              <input type="text" id="q" name="q" defaultValue={filter.q} maxLength={255} placeholder={resource.keyword} />
-              <button type="submit" className="btn-search" />
-            </label>
-            <Pagination className="col s12 m6" total={res.total} size={filter.limit} page={filter.page} search={search} />
-          </section>
-          <section className="row search-group inline">
-            <label className="col s12 m6">
-              {resource.published_at_from}
-              <input
-                type="datetime-local"
-                step=".010"
-                id="publishedAt_min"
-                name="publishedAt.min"
-                data-field="publishedAt.min"
-                defaultValue={datetimeToString(filter.publishedAt?.min)}
-              />
-            </label>
-            <label className="col s12 m6">
-              {resource.published_at_to}
-              <input
-                type="datetime-local"
-                step=".010"
-                id="publishedAt_max"
-                name="publishedAt.max"
-                data-field="publishedAt.max"
-                defaultValue={datetimeToString(filter.publishedAt?.max)}
-              />
-            </label>
-          </section>
-        </form>
-        <form>
-          <ul className="row list">
+  try {
+    const { list, total } = await service.search(filter, limit, filter.page)
+
+    const dateFormat = getDateFormat(lang)
+    const langSearch = getLangSearch(lang)
+
+    const search = removePage(query)
+    const limitSearch = removeLimit(query)
+
+    const sortSearch = removeSort(query)
+    const prefix = sortSearch ? `?${sortSearch}&` : "?"
+    const sort1: Item = { id: "timeDescSort", value: `${prefix}${sort}=-publishedAt`, text: resource.sort_time_desc }
+    const sort2: Item = { id: "timeAscSort", value: `${prefix}${sort}=publishedAt`, text: resource.sort_time_asc }
+    const sortText = filter.sort == "publishedAt" ? resource.sort_desc_time_asc : resource.sort_desc_time_desc
+    const items = [sort1, sort2]
+
+    return (
+      <div>
+        <header>
+          <h2>{resource.news}</h2>
+        </header>
+        <div className="main-body">
+          <Form id="jobsForm" name="jobsForm" className="form" noValidate={true} action="/careers">
+            <section className="row search-group">
+              <label className="col s12 m6 l4 xl6 search-input">
+                <Limit id="limitBtn" className="limit" text={limit} search={limitSearch} items={limits} dropDownId="limitDropdown" dropdownClass="dropdown" />
+                <input type="text" id="q" name="q" defaultValue={filter.q} maxLength={40} placeholder={resource.keyword} />
+                <ToggleSearch id="toggleSearchBtn" className="btn-filter" />
+                <button type="submit" id="searchBtn" className="btn-search" />
+              </label>
+              <Sort id="sortBtn" className="col s12 m6 l4 xl3 sort" text={sortText} items={items} dropDownId="sortDropdown" dropdownClass="dropdown" />
+              <Pagination className="col s12 m6 l4 xl3" total={total} size={filter.limit} page={filter.page} search={search} />
+            </section>
+            <section className="row search-group advance-search" hidden>
+              <label className="col s12 m6">
+                {resource.published_at_from}
+                <input
+                  type="datetime-local"
+                  step=".010"
+                  id="publishedAt_min"
+                  name="publishedAt.min"
+                  data-field="publishedAt.min"
+                  defaultValue={datetimeToString(filter.publishedAt?.min)}
+                />
+              </label>
+              <label className="col s12 m6">
+                {resource.published_at_to}
+                <input
+                  type="datetime-local"
+                  step=".010"
+                  id="publishedAt_max"
+                  name="publishedAt.max"
+                  data-field="publishedAt.max"
+                  defaultValue={datetimeToString(filter.publishedAt?.max)}
+                />
+              </label>
+            </section>
+            {!isDefaultLang(lang) && <input type="hidden" id="lang" name="lang" value={lang} />}
+          </Form>
+          <ul className="row list card-grid">
             {list.map((item, i) => {
               return (
                 <li key={i} className="col s12 m6 l4 xl3 list-item">
-                  <Link href={`/careers/${item.slug}?lang=${lang}`} prefetch={false}>{item.title}</Link>
+                  <Link href={`/careers/${item.slug}${langSearch}`} prefetch={false}>{item.title}</Link>
                   <p>
                     {item.location} {item.quantity}
                     <span>{formatDateTime(item.publishedAt, dateFormat)}</span>
@@ -73,8 +90,29 @@ export default async function Careers({ searchParams }: { searchParams: Promise<
               )
             })}
           </ul>
-        </form>
+        </div>
       </div>
-    </div>
-  )
+    )
+  } catch (err) {
+    logger.error(toString(err))
+    return <Error title={resource.error_500_title} message={resource.error_500_message} />
+  }
+}
+export function removeLimit(obj: Record<string, string | string[] | undefined>): string {
+  const arr: string[] = []
+  const keys = Object.keys(obj)
+  for (const k of keys) {
+    if (k !== "limit" && k !== "page") {
+      const v = obj[k]
+      if (typeof v === "string") {
+        arr.push(`${k}=${encodeURI(v)}`)
+      } else if (Array.isArray(v)) {
+        const x = v as string[]
+        if (x.length > 0) {
+          arr.push(`${k}=${encodeURI(x[x.length - 1])}`)
+        }
+      }
+    }
+  }
+  return arr.length === 0 ? "" : arr.join("&")
 }
