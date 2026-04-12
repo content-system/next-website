@@ -1,8 +1,8 @@
 import { Nav } from "@components/nav";
 import { getLangByPath, getResource } from "@resources";
 import { ctx } from "@service";
-import { rebuildPath } from "@service/menu";
 import { headers } from "next/headers";
+import { rebuildPath } from "web-one";
 
 export default async function LayoutPage({ children }: { children: React.ReactNode }) {
   const headerList = await headers()

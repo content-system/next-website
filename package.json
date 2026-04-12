@@ -23,7 +23,7 @@
     "query-core": "^0.6.6",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "web-one": "^0.0.3",
+    "web-one": "^0.0.4",
     "xvalidators": "^0.5.19"
   },
   "devDependencies": {
