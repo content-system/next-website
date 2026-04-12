@@ -1,7 +1,7 @@
 export interface Props {
   title: string
   message: string
-  detail?: string
+  description?: string
 }
 
 export function Error(props: Props) {
@@ -12,7 +12,7 @@ export function Error(props: Props) {
       </header>
       <div className="error-body">
         <h4 className="h4">{props.message}</h4>
-        {props.detail && <p>{props.detail}</p>}
+        {props.description && <p>{props.description}</p>}
       </div>
     </div>
   )
