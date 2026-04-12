@@ -37,6 +37,9 @@
       ],
       "@resources": [
         "resources/index"
+      ],
+      "@lib/*": [
+        "lib/*"
       ]
     },
     "target": "ES2015"
