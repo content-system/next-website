@@ -14,7 +14,7 @@ export default async function Article({ params, searchParams }: { params: Promis
   const { slug } = await params
   const article = await ctx.article.load(slug)
   return (
-    !article ? <Error title={resource.error_404_title} description={resource.error_404_message} /> : (
+    !article ? <Error title={resource.error_404_title} message={resource.error_404_message} /> : (
       <article className="article">
         <header>
           <button type="button" id="btnBack" name="btnBack" className="btn-back" />

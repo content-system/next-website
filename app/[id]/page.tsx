@@ -8,7 +8,7 @@ export default async function DynamicContent({ params }: { params: Promise<{ id:
   const content = await ctx.content.load(id, "en")
 
   return !content ? (
-    <Error title={resource.error_404_title} description={resource.error_404_message}/>
+    <Error title={resource.error_404_title} message={resource.error_404_message}/>
   ) : (
     <div className="content-container" dangerouslySetInnerHTML={{ __html: content.body || "" }}></div>
   )

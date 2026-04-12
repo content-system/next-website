@@ -14,7 +14,7 @@ export default async function Job({ params, searchParams }: { params: Promise<{ 
   const { slug } = await params
   const job = await ctx.job.load(slug)
   return (
-    !job ? <Error title={resource.error_404_title} description={resource.error_404_message} /> : (
+    !job ? <Error title={resource.error_404_title} message={resource.error_404_message} /> : (
       <article className="article" >
         <header>
           <button type="button" id="btnBack" name="btnBack" className="btn-back" />
