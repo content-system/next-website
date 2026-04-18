@@ -3,10 +3,6 @@ import { compare } from "bcryptjs"
 import { db } from "./db"
 
 const authConfig = {
-  token: {
-    secret: "secretbackoffice",
-    expires: 86400000,
-  },
   status: {
     success: 1,
     password_expired: 3,

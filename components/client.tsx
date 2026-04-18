@@ -121,3 +121,18 @@ export function ToggleSearch({ id, name, className, children, targetClass }: Sea
     </button>
   )
 }
+
+export function ToggleUniversalSearch({ id, name, className, children }: Props) {
+  const onClick = (e: MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    const p = findParent(e.target as HTMLElement, "sidebar-parent")
+    if (p) {
+      p.classList.toggle("search")
+    }
+  }
+  return (
+    <button type="button" id={id} name={name} className={className} onClick={onClick}>
+      {children}
+    </button>
+  )
+}

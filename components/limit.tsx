@@ -15,12 +15,13 @@ export function Limit(props: Props) {
   const field = props.field ? props.field : "limit"
   const prefix = props.search ? `?${props.search}&` : "?"
   const parentClass = props.parentClass ? props.parentClass : "limit"
+  const dropdownClass = props.dropdownClass ? props.dropdownClass : "dropdown"
   return (
     <div className={props.className}>
       <ToggleDropdown id={props.id} className="btn-limit">
         {props.text}
       </ToggleDropdown>
-      <div id={props.dropDownId} className={props.dropdownClass}>
+      <div id={props.dropDownId} className={dropdownClass}>
         {props.items &&
           props.items.map((item, i) => {
             return (

@@ -19,6 +19,7 @@ let articleService: ArticleService | undefined
 export function getArticleService(): ArticleService {
   console.log("enter getArticleService")
   if (!articleService) {
+    console.log("create ArticleService")
     const repository = new SqlArticleRepository(db)
     articleService = new ArticleUseCase(repository)
   }

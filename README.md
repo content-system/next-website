@@ -58,7 +58,7 @@ Utilities:
   - Based on schema, build a JSON object from HTML FormData
  
 Database:
-- query-core: standard sql library, which can work with Oracle, Postgres, MySQL, SQL Server, SQLite
+- sql-core: standard sql library, which can work with Oracle, Postgres, MySQL, SQL Server, SQLite
   - CRUDRepository (like CRUDRepository of Spring)
   - Repository: CRUDRepository + Search Repository
   - Utilities:

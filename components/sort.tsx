@@ -16,12 +16,13 @@ interface Props {
 }
 export function Sort(props: Props) {
   const parentClass = props.parentClass ? props.parentClass : "sort"
+  const dropdownClass = props.dropdownClass ? props.dropdownClass : "dropdown"
   return (
     <div className={props.className}>
       <ToggleDropdown id={props.id} className="btn-sort">
         {props.text}
       </ToggleDropdown>
-      <div id={props.dropDownId} className={props.dropdownClass}>
+      <div id={props.dropDownId} className={dropdownClass}>
         {props.items &&
           props.items.map((item, i) => {
             return (

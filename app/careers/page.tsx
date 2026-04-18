@@ -7,19 +7,19 @@ import { logger, toString } from "@lib/logger"
 import { defaultLimit, getDateFormat, getLang, getLangSearch, getResource, isDefaultLang, limits, sort } from "@resources"
 import { getJobService, JobFilter } from "@service/job"
 import Form from "next/form"
+import { headers } from "next/headers"
 import Link from "next/link"
-import { buildFilter, datetimeToString, formatDateTime, removePage, removeSort } from "web-one"
+import { buildFilter, datetimeToString, formatDateTime, removeLimit, removePage, removeSort } from "web-one"
 
 export default async function Careers({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams
   const lang = getLang(query)
   const resource = getResource(lang)
 
-  const filter = buildFilter<JobFilter>(query, ["publishedAt"])
-  const limit = filter.limit || defaultLimit
+  const filter = buildFilter<JobFilter>(query, defaultLimit, ["publishedAt"])
   const service = getJobService()
   try {
-    const { list, total } = await service.search(filter, limit, filter.page)
+    const { list, total } = await service.search(filter, filter.limit, filter.page)
 
     const dateFormat = getDateFormat(lang)
     const langSearch = getLangSearch(lang)
@@ -43,13 +43,13 @@ export default async function Careers({ searchParams }: { searchParams: Promise<
           <Form id="jobsForm" name="jobsForm" className="form" noValidate={true} action="/careers">
             <section className="row search-group">
               <label className="col s12 m6 l4 xl6 search-input">
-                <Limit id="limitBtn" className="limit" text={limit} search={limitSearch} items={limits} dropDownId="limitDropdown" dropdownClass="dropdown" />
+                <Limit id="limitBtn" className="limit" text={filter.limit} search={limitSearch} items={limits} dropDownId="limitDropdown" />
                 <input type="text" id="q" name="q" defaultValue={filter.q} maxLength={40} placeholder={resource.keyword} />
                 <ToggleSearch id="toggleSearchBtn" className="btn-filter" />
                 <button type="submit" id="searchBtn" className="btn-search" />
               </label>
-              <Sort id="sortBtn" className="col s12 m6 l4 xl3 sort" text={sortText} items={items} dropDownId="sortDropdown" dropdownClass="dropdown" />
-              <Pagination className="col s12 m6 l4 xl3" total={total} size={filter.limit} page={filter.page} search={search} />
+              <Sort id="sortBtn" className="col s12 m6 l4 xl3 sort" text={sortText} items={items} dropDownId="sortDropdown" />
+              <Pagination className="col s12 l4 xl3" total={total} size={filter.limit} page={filter.page} search={search} />
             </section>
             <section className="row search-group advance-search" hidden>
               <label className="col s12 m6">
@@ -94,25 +94,9 @@ export default async function Careers({ searchParams }: { searchParams: Promise<
       </div>
     )
   } catch (err) {
-    logger.error(toString(err))
+    const headerList = await headers()
+    const pathname = headerList.get("x-current-path")
+    logger.error(`Error at ${pathname}: ${toString(err)}`)
     return <Error title={resource.error_500_title} message={resource.error_500_message} />
   }
-}
-export function removeLimit(obj: Record<string, string | string[] | undefined>): string {
-  const arr: string[] = []
-  const keys = Object.keys(obj)
-  for (const k of keys) {
-    if (k !== "limit" && k !== "page") {
-      const v = obj[k]
-      if (typeof v === "string") {
-        arr.push(`${k}=${encodeURI(v)}`)
-      } else if (Array.isArray(v)) {
-        const x = v as string[]
-        if (x.length > 0) {
-          arr.push(`${k}=${encodeURI(x[x.length - 1])}`)
-        }
-      }
-    }
-  }
-  return arr.length === 0 ? "" : arr.join("&")
 }

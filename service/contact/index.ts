@@ -1,6 +1,6 @@
 import { db } from "@lib/db"
 import { nanoid } from "nanoid"
-import { CRUDRepository, DB } from "query-core"
+import { CRUDRepository, DB } from "sql-core"
 import { Contact, contactModel, ContactRepository, ContactService } from "./contact"
 export * from "./contact"
 

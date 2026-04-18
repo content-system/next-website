@@ -3,6 +3,7 @@ import { Error } from "@components/error";
 import { logger, toString } from "@lib/logger";
 import { getDateFormat, getLang, getResource } from "@resources";
 import { getArticleService } from "@service/article";
+import { headers } from "next/headers";
 import { formatDateTime } from "web-one";
 
 export default async function Article({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -28,13 +29,14 @@ export default async function Article({ params, searchParams }: { params: Promis
         <div className="article-body">
           <h4 className="article-description">{article.description}</h4>
           <h4 className="article-meta">{formatDateTime(article.publishedAt, dateFormat)}</h4>
-          {/*<img className="article-thumbnail" src={article.thumbnail}></img>*/}
           <div className="article-content" dangerouslySetInnerHTML={{ __html: article.content || "" }}></div>
         </div>
       </article>
     )
   } catch (err) {
-    logger.error(toString(err))
+    const headerList = await headers()
+    const pathname = headerList.get("x-current-path")
+    logger.error(`Error at ${pathname}: ${toString(err)}`)
     return <Error title={resource.error_500_title} message={resource.error_500_message} />
   }
 }

@@ -1,5 +1,5 @@
 import { db } from "@lib/db"
-import { DB } from "query-core"
+import { DB } from "sql-core"
 import { Content, ContentRepository, ContentService } from "./content"
 export * from "./content"
 

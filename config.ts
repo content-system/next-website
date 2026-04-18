@@ -11,6 +11,10 @@ export const config = {
     url: "postgres://postgres:abcd1234@localhost/cms",
     max: 10,
   },
+  token: {
+    secret: "secretbackoffice",
+    expires: 86400000,
+  },
 }
 
 export const env = {

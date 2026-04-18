@@ -3,6 +3,7 @@ import { Error } from "@components/error";
 import { logger, toString } from "@lib/logger";
 import { getDateFormat, getLang, getResource } from "@resources";
 import { getJobService } from "@service/job";
+import { headers } from "next/headers";
 import { formatDateTime } from "web-one";
 
 export default async function Job({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -38,7 +39,9 @@ export default async function Job({ params, searchParams }: { params: Promise<{ 
       </article >
     )
   } catch (err) {
-    logger.error(toString(err))
+    const headerList = await headers()
+    const pathname = headerList.get("x-current-path")
+    logger.error(`Error at ${pathname}: ${toString(err)}`)
     return <Error title={resource.error_500_title} message={resource.error_500_message} />
   }
 }
