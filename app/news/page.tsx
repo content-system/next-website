@@ -49,7 +49,7 @@ export default async function News({ searchParams }: { searchParams: Promise<Rec
                 <button type="submit" id="searchBtn" className="btn-search" />
               </label>
               <Sort id="sortBtn" className="col s12 m6 l4 xl3 sort" text={sortText} items={items} dropDownId="sortDropdown" />
-              <Pagination className="col s12 l4 xl3" total={total} size={filter.limit} page={filter.page} search={search} />
+              <Pagination className="col s12 m6 l4 xl3" total={total} size={filter.limit} page={filter.page} search={search} />
             </section>
             <section className="row search-group advance-search" hidden>
               <label className="col s12 m6">
@@ -98,6 +98,6 @@ export default async function News({ searchParams }: { searchParams: Promise<Rec
     const headerList = await headers()
     const pathname = headerList.get("x-current-path")
     logger.error(`Error at ${pathname}: ${toString(err)}`)
-    return <Error title={resource.error_404_title} message={resource.error_404_message} />
+    return <Error title={resource.error_500_title} message={resource.error_500_message} />
   }
 }
