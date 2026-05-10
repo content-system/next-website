@@ -1,7 +1,7 @@
 "use client"
 
 import { FocusEvent, FocusEventHandler, ReactNode } from "react"
-import { addClass, addErrorMessage, getContainer, isValidPattern, removeClasses, removeError } from "./client-script"
+import { addClass, addErrorMessage, getContainer, isValidPattern, removeClasses, removeError } from "script-plus"
 
 interface Props {
   type?: string
