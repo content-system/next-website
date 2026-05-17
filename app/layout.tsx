@@ -1,8 +1,8 @@
-import "@assets/css/globals.css";
-import LayoutPage from "@components/layout";
-import { getLangByPath } from "@resources";
-import { headers } from "next/headers";
-import Script from "next/script";
+import "@assets/css/globals.css"
+import LayoutPage from "@components/layout"
+import { getLangByPath } from "@resources"
+import { headers } from "next/headers"
+import Script from "next/script"
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const headerList = await headers()
