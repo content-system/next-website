@@ -15,12 +15,12 @@ export class ArticleUseCase implements ArticleService {
   }
 }
 
-let articleService: ArticleService | undefined
+let service: ArticleService | undefined
 export function getArticleService(): ArticleService {
-  if (!articleService) {
+  if (!service) {
     console.log("create ArticleService")
     const repository = new SqlArticleRepository(db)
-    articleService = new ArticleUseCase(repository)
+    service = new ArticleUseCase(repository)
   }
-  return articleService
+  return service
 }

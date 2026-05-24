@@ -14,11 +14,11 @@ export class JobUseCase implements JobService {
   }
 }
 
-let jobService: JobService | undefined
+let service: JobService | undefined
 export function getJobService(): JobService {
-  if (!jobService) {
+  if (!service) {
     const repository = new SqlJobRepository(db)
-    jobService = new JobUseCase(repository)
+    service = new JobUseCase(repository)
   }
-  return jobService
+  return service
 }
