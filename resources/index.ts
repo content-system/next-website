@@ -1,4 +1,4 @@
-import { enLocale, getLocale } from "locale-service"
+import { getLocale, usLocale } from "locale-service"
 import { StringMap } from "onecore"
 import { getRecordValue } from "web-one"
 import { en as authenticationEN } from "./authentication/en"
@@ -34,9 +34,9 @@ export const resources: Resources = {
 
 export function getDateFormat(lang?: string): string {
   if (!lang) {
-    return enLocale.dateFormat
+    return usLocale.dateFormat
   }
-  const locale = getLocale(lang) || enLocale
+  const locale = getLocale(lang) || usLocale
   return locale.dateFormat
 }
 export function isDefaultLang(lang?: string): boolean {
