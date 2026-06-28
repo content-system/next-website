@@ -171,37 +171,6 @@ export function isValidPattern(v: string, pattern: string, flags?: string | null
   return p.test(v)
 }
 
-export function removeSeparators(input?: string | null): string {
-  if (!input) return ""
-
-  const len = input.length
-  const buffer = new Array<string>(len)
-  let write = 0
-
-  for (let i = 0; i < len; i++) {
-    const c = input[i]
-
-    // skip unwanted characters
-    if (
-      c === " " || // normal space
-      c === "\u00A0" || // non-breaking space
-      c === "," ||
-      c === "." ||
-      c === "٬" || // Arabic thousands separator
-      c === "$" ||
-      c === "€" ||
-      c === "£" ||
-      c === "¥"
-    ) {
-      continue
-    }
-
-    buffer[write++] = c
-  }
-
-  // Avoid creating a large intermediate array via slice
-  return write === len ? input : buffer.slice(0, write).join("")
-}
 export function formatInteger(v?: number | null, groupSeparator: string = ","): string {
   if (v == null || !Number.isFinite(v)) {
     return ""
@@ -330,8 +299,7 @@ function setKey(_object: any, _isArrayKey: boolean, _key: string, _nextValue: an
   }
   return _object
 }
-const r1 = / |,|\$|€|£|¥|'|٬|،| /g
-const r2 = / |\.|\$|€|£|¥|'|٬|،| /g
+
 function parseDate(v: string, format?: string): Date {
   if (!format || format.length === 0) {
     format = "MM/DD/YYYY"
@@ -370,7 +338,7 @@ function getDecimalSeparator(ele: HTMLInputElement): string {
   }
   return separator ? separator : "."
 }
-export function getGroupSeparator(ele: HTMLInputElement): string {
+export function getGroupSeparator(ele: HTMLInputElement): string | null | undefined {
   let separator = ele.getAttribute("data-group-separator")
   if (!separator) {
     const form = ele.form
@@ -378,7 +346,7 @@ export function getGroupSeparator(ele: HTMLInputElement): string {
       separator = form.getAttribute("data-group-separator")
     }
   }
-  return separator === "." ? "." : ","
+  return separator
 }
 export function getChipsByElement(container?: Element | null): string[] {
   if (container) {
@@ -414,6 +382,75 @@ export function getChipObjects(container: Element | null | undefined, value: str
     return []
   }
 }
+export function normalizePhone(s?: string | null): string {
+  if (!s) {
+    return ""
+  }
+  const len = s.length
+  const buf = new Array<string>(len)
+  let j = 0
+  for (let i = 0; i < len; i++) {
+    const c = s.charCodeAt(i)
+    if (c === 43 || (c >= 48 && c <= 57)) {
+      buf[j++] = s[i]
+    }
+  }
+  return j === len ? buf.join("") : buf.slice(0, j).join("")
+}
+export function normalizeInteger(s?: string | null): string {
+  if (!s) {
+    return ""
+  }
+  const len = s.length
+  const buf = new Array<string>(len)
+  let j = 0
+  for (let i = 0; i < len; i++) {
+    const c = s.charCodeAt(i)
+    if (c >= 48 && c <= 57) {
+      buf[j++] = s[i]
+    }
+  }
+  return j === len ? buf.join("") : buf.slice(0, j).join("")
+}
+
+// Keep a single dot
+export function removeSeparators(s?: string | null): string {
+  if (!s) {
+    return ""
+  }
+  const len = s.length
+  const buffer = new Uint16Array(len) // preallocate max possible
+  let write = 0
+
+  for (let i = 0; i < len; i++) {
+    const c = s.charCodeAt(i)
+    // '0'–'9' (48–57), '.' (46)
+    if ((c >= 48 && c <= 57) || c === 46) {
+      buffer[write++] = c
+    }
+  }
+  // Convert only the used portion to string
+  return String.fromCharCode.apply(null, buffer.subarray(0, write) as any)
+}
+// Keep digits 0–9 ; Replace , and ٫ (Arabic decimal separator) → . ; Remove everything else => < 100 char: Array<string> version can actually be just as fast or faster due to lower overhead
+export function normalizeNumber(s?: string | null): string {
+  if (!s) {
+    return ""
+  }
+  const len = s.length
+  const buf = new Array<string>(len)
+  let j = 0
+  for (let i = 0; i < len; i++) {
+    const c = s.charCodeAt(i)
+
+    if (c >= 48 && c <= 57) {
+      buf[j++] = s[i]
+    } else if (c === 44 || c === 1643) {
+      buf[j++] = "."
+    }
+  }
+  return j === len ? buf.join("") : buf.slice(0, j).join("")
+}
 export function decode<T>(form: HTMLFormElement, currencySymbol?: string | null): T {
   const dateFormat = form.getAttribute("data-date-format")
   const obj = {} as T
@@ -443,6 +480,7 @@ export function decode<T>(form: HTMLFormElement, currencySymbol?: string | null)
       if (nodeName === "INPUT" && type !== null) {
         nodeName = type.toUpperCase()
       }
+      const datatype = ele.getAttribute("data-type")
       if (nodeName !== "BUTTON" && nodeName !== "RESET" && nodeName !== "SUBMIT" && ele.getAttribute("data-skip") !== "true") {
         switch (type) {
           case "checkbox":
@@ -485,28 +523,28 @@ export function decode<T>(form: HTMLFormElement, currencySymbol?: string | null)
             }
             break
           default:
-            val = ele.value
+            console.log("go to check phone")
+            if (datatype === "phone") {
+              val = normalizePhone(ele.value)
+            } else {
+              val = ele.value
+            }
         }
         if (isDate && dateFormat && dateFormat.length > 0) {
           const d = parseDate(val, dateFormat)
           val = d.toString() === "Invalid Date" ? null : d
         }
-        const datatype = ele.getAttribute("data-type")
-        let v: any = ele.value
-        let symbol: string | null | undefined
-        if (datatype === "currency" || datatype === "string-currency") {
-          symbol = ele.getAttribute("data-currency-symbol")
-          if (!symbol) {
-            symbol = currencySymbol
-          }
-          if (symbol && symbol.length > 0 && v.indexOf(symbol) >= 0) {
-            v = v.replace(symbol, "")
-          }
-        }
-        if (type === "number" || datatype === "currency" || datatype === "integer" || datatype === "number") {
+
+        let v = ele.value
+        if (datatype === "phone" || datatype === "fax") {
+          val = normalizePhone(v)
+        } else if (datatype === "integer") {
+          const n0 = normalizeInteger(v)
+          val = isNaN(n0 as any) ? undefined : parseFloat(v)
+        } else if (datatype === "number" || datatype === "currency") {
           const decimalSeparator = getDecimalSeparator(ele)
-          v = decimalSeparator === "," ? v.replace(r2, "") : v.replace(r1, "")
-          val = isNaN(v) ? null : parseFloat(v)
+          const n0 = decimalSeparator === "," || decimalSeparator === "٫" ? normalizeNumber(v) : removeSeparators(v)
+          val = isNaN(n0 as any) ? undefined : parseFloat(v)
         }
         setValue(obj, name, val) // obj[name] = val;
       }
@@ -528,6 +566,14 @@ export function decode<T>(form: HTMLFormElement, currencySymbol?: string | null)
   return obj
 }
 
+export function getRequiredError(ele: HTMLInputElement | HTMLSelectElement): string {
+  const form = ele.form
+  let msg: string | null = ""
+  if (form) {
+    msg = form.getAttribute("data-required-error")
+  }
+  return msg ? msg : "{0} is required."
+}
 export function validateElement(ele: HTMLInputElement, locale?: Locale | string | null, includeReadOnly?: boolean): string | null {
   if (!ele) {
     return null
@@ -565,8 +611,20 @@ export function validateElement(ele: HTMLInputElement, locale?: Locale | string 
   let value = ele.value
 
   const label = getLabel(ele)
+  if (ele.required && !ele.value) {
+    let msg = ele.getAttribute("data-required-error")
+    if (msg) {
+      addErrorMessage(ele, msg)
+      return msg
+    }
+    const errorFormat = getRequiredError(ele)
+    msg = formatText(errorFormat, label)
+    addErrorMessage(ele, msg)
+    return msg
+  }
 
   if (!value || value === "") {
+    removeError(ele)
     return null
   }
 
@@ -601,7 +659,13 @@ export function validateElement(ele: HTMLInputElement, locale?: Locale | string 
   removeError(ele)
   return null
 }
-export function validateForm(form?: HTMLFormElement, locale?: Locale | string | null, focusFirst?: boolean, scroll?: boolean, includeReadOnly?: boolean): boolean {
+export function validateForm(
+  form?: HTMLFormElement,
+  locale?: Locale | string | null,
+  focusFirst?: boolean,
+  scroll?: boolean,
+  includeReadOnly?: boolean,
+): boolean {
   if (!form) {
     return true
   }
@@ -647,4 +711,59 @@ export function validateForm(form?: HTMLFormElement, locale?: Locale | string | 
     }
   }
   return valid
+}
+export interface ErrorMessage {
+  field: string
+  code: string
+  message?: string
+}
+export function showFormError(
+  form?: HTMLFormElement,
+  errors?: ErrorMessage[],
+  focusFirst?: boolean,
+  directParent?: boolean,
+  includeId?: boolean,
+): ErrorMessage[] {
+  if (!form || !errors || errors.length === 0) {
+    return []
+  }
+  let errorCtrl: HTMLInputElement | null = null
+  const errs: ErrorMessage[] = []
+  const length = errors.length
+  const len = form.length
+
+  for (let i = 0; i < length; i++) {
+    let hasControl = false
+    for (let j = 0; j < len; j++) {
+      const ele = form[j] as HTMLInputElement
+      const dataField = ele.getAttribute("data-field")
+      if (dataField === errors[i].field || ele.name === errors[i].field) {
+        addErrorMessage(ele, errors[i].message, directParent)
+        hasControl = true
+        if (!errorCtrl) {
+          errorCtrl = ele
+        }
+      }
+    }
+    if (hasControl === false) {
+      if (includeId) {
+        const ele = document.getElementById(errors[i].field)
+        if (ele) {
+          addErrorMessage(ele as HTMLInputElement, errors[i].message, directParent)
+        } else {
+          errs.push(errors[i])
+        }
+      } else {
+        errs.push(errors[i])
+      }
+    }
+  }
+  if (focusFirst !== false) {
+    focusFirst = true
+  }
+  if (errorCtrl && focusFirst === true) {
+    errorCtrl.focus()
+    errorCtrl.scrollIntoView()
+  }
+  return errs
 }

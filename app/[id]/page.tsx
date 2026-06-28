@@ -2,13 +2,15 @@ import { Error } from "@components/error"
 import { logger, toString } from "@lib/logger"
 import { getResource } from "@resources"
 import { getContentService } from "@service/content"
+import { StringMap } from "authen-service"
 import { headers } from "next/headers"
 
-export default async function Content({ params }: { params: Promise<{ id: string }> }) {
+export default async function Content({ params }: { params: Promise<StringMap> }) {
   const headerList = await headers()
   const pathname = headerList.get("x-current-path")
   const resource = getResource("en")
   const { id } = await params
+  console.log("id " + id)
 
   const service = getContentService()
   try {
