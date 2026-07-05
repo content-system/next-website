@@ -42,7 +42,7 @@ export default async function News({ searchParams }: { searchParams: Promise<Rec
           <Form id="articlesForm" name="articlesForm" className="form" noValidate={true} action="/news">
             <section className="row search-group">
               <Search
-                className="col s12 m6 l4 xl6 search-input" 
+                className="col s12 m6 l4 xl6 search-input"
                 limit={filter.limit}
                 limits={limits}
                 limitSearch={limitSearch}
@@ -87,7 +87,9 @@ export default async function News({ searchParams }: { searchParams: Promise<Rec
                 <li key={i} className="col s12 m6 l4 xl3 img-card">
                   <section>
                     <div className="cover" style={{ backgroundImage: `url('${item.thumbnail}')` }}></div>
-                    <Link href={`/news/${item.slug}${langSearch}`} prefetch={false}>{item.title}</Link>
+                    <Link href={`/news/${item.slug}${langSearch}`} prefetch={false}>
+                      {item.title}
+                    </Link>
                     <p>{formatDateTime(item.publishedAt, dateFormat)}</p>
                     <p>{item.description}</p>
                   </section>
