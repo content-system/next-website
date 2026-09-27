@@ -1,9 +1,8 @@
 import { BackButton } from "@components/client"
 import { Error } from "@components/error"
-import { logger, toString } from "@lib/logger"
+import { logError, logger } from "@lib/logger"
 import { getDateFormat, getLang, getResource } from "@resources"
 import { getArticleService } from "@service/article"
-import { headers } from "next/headers"
 import { formatDateTime } from "web-one"
 
 export default async function Article({
@@ -40,9 +39,7 @@ export default async function Article({
       </article>
     )
   } catch (err) {
-    const headerList = await headers()
-    const pathname = headerList.get("x-current-path")
-    logger.error(`Error at ${pathname}: ${toString(err)}`)
+    logError(err)
     return <Error title={resource.error_500_title} message={resource.error_500_message} />
   }
 }

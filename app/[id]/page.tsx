@@ -10,7 +10,6 @@ export default async function Content({ params }: { params: Promise<StringMap> }
   const pathname = headerList.get("x-current-path")
   const resource = getResource("en")
   const { id } = await params
-  console.log("id " + id)
 
   const service = getContentService()
   try {

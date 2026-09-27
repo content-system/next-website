@@ -4,6 +4,7 @@ import { NextResponse } from "next/server"
 export function proxy(request: NextRequest) {
   // Add a new header x-current-path which passes the path to downstream components
   const headers = new Headers(request.headers)
+  headers.set("x-current-fullpath", request.nextUrl.pathname + request.nextUrl.search)
   headers.set("x-current-path", request.nextUrl.pathname)
 
   const url = new URL(request.url)
@@ -21,6 +22,6 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     // match all routes except static files and APIs
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/((?!_next/static|_next/image|favicon.ico|logo192\\.png|logo512\\.png|manifest\\.json|robots\\.txt|static).*)",
   ],
 }

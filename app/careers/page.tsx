@@ -2,11 +2,10 @@ import { Error } from "@components/error"
 import { Pagination } from "@components/pagination"
 import Search from "@components/search"
 import { Item, Sort } from "@components/sort"
-import { logger, toString } from "@lib/logger"
+import { logError } from "@lib/logger"
 import { defaultLimit, getDateFormat, getLang, getLangSearch, getResource, isDefaultLang, limits, sort } from "@resources"
 import { getJobService, JobFilter } from "@service/job"
 import Form from "next/form"
-import { headers } from "next/headers"
 import Link from "next/link"
 import { buildFilter, datetimeToString, formatDateTime, removeLimit, removePage, removeSort } from "web-one"
 
@@ -100,9 +99,7 @@ export default async function Careers({ searchParams }: { searchParams: Promise<
       </div>
     )
   } catch (err) {
-    const headerList = await headers()
-    const pathname = headerList.get("x-current-path")
-    logger.error(`Error at ${pathname}: ${toString(err)}`)
+    logError(err)
     return <Error title={resource.error_500_title} message={resource.error_500_message} />
   }
 }
