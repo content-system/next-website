@@ -1,5 +1,5 @@
 import { Error } from "@components/error"
-import { logger, toString } from "@lib/logger"
+import { logger } from "@lib/logger"
 import { getResource } from "@resources"
 import { getContentService } from "@service/content"
 import { StringMap } from "authen-service"
@@ -20,7 +20,7 @@ export default async function Content({ params }: { params: Promise<StringMap> }
     }
     return <div className="content-container" dangerouslySetInnerHTML={{ __html: content.body || "" }}></div>
   } catch (err) {
-    logger.error(`Error at ${pathname}: ${toString(err)}`)
+    logger.error(`Error at ${pathname}: ${err}`)
     return <Error title={resource.error_500_title} message={resource.error_500_message} />
   }
 }
