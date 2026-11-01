@@ -8,12 +8,11 @@ import { ClientLayout } from "./client"
 import PageHeader from "./page-header"
 
 export default async function LayoutPage({ children }: { children: React.ReactNode }) {
-  let items: MenuItem[] = []
+  let items: MenuItem[] = await getMenu()
   const account = await getCurrentUser()
   let lang: string | undefined
   if (account) {
     lang = account.language
-    items = await getMenu(account.id)
   }
   if (!lang) {
     const defaultLang = getDefaultLang()

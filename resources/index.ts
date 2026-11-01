@@ -39,6 +39,9 @@ export function getDateFormat(lang?: string): string {
   const locale = getLocale(lang) || usLocale
   return locale.dateFormat
 }
+export function getDefaultLang(): string {
+  return "en"
+}
 export function isDefaultLang(lang?: string): boolean {
   return !lang || lang === "en"
 }
