@@ -1,4 +1,4 @@
-import { BackButton } from "@components/client"
+import { BackButton } from "@components/back-button"
 import { Error } from "@components/error"
 import { logError, logger } from "@lib/logger"
 import { getDateFormat, getLang, getResource } from "@resources"
